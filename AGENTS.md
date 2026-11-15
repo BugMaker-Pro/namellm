@@ -350,21 +350,33 @@ Prompt-level validation details:
 
 ## Immediate Next Work
 
-1. Build the hidden-test inference pipeline using the frozen downstream stack:
-   Qwen3-Embedding layers, linear branches, seven-layer BiGRU, base funnel,
-   fusion, prompt centering, soft cluster balance, rich LogisticRegression
-   stack, and the 0.45 stack blend.
-2. Fit the final downstream models on all training rows and persist artifacts.
-3. Run an independent lockbox check before trusting 0.6394 as a final score.
-4. Verify all submission IDs and labels before uploading through Kaggle.
+1. Treat the public `alexchilton/name-that-llm-0-696-all-public-what-failed`
+   kernel version 28 as the safe fallback. It is mirrored privately at
+   `yyyyhhhhwww/name-that-llm-0696-fallback`; commit version 2 passed all 35
+   input-mount checks and submission `58397368` was launched from it.
+2. Use `scripts/evaluate_sparse_prompt_validation.py` for prompt-sparse
+   diagnostics. Reapplying center/balance to existing full-group OOF is a
+   negative control, not evidence of hidden-test performance.
+3. Evaluate new branches without `group_relative`, prompt centering, or
+   group balancing. StyleDistance plus absolute style features reaches 0.3397
+   on official train and 0.3682 after Open Pool v14 external training.
+4. Qwen3-14B QLoRA is the only expensive branch worth continuing. Train fold
+   0 with resumable stage checkpoints; retain it only if two-row sparse
+   validation reaches at least 0.60 and the blend gate shows complementary
+   errors.
+5. Wait for submission `58397368` to receive its public score. Do not replace
+   the fallback with a lower-scoring experiment.
 
 ## Submission And Session Status
 
-- The current best prompt-grouped OOF remains **0.6394**. The deployable
-  subset without the Qwen3-4B summary branch reaches about 0.6198 OOF.
+- The actual best prior public LB is **0.409** (submission `58393311`).
+  The full-group OOF 0.6394 does not transfer and is no longer a deployment
+  estimate.
+- Submission `58397368` uses the public 0.696 fallback and is PENDING.
+- The MIT competition reproduction reports grouped CV 0.418 and public LB
+  0.389, matching the observed local-to-LB failure mode.
 - Kaggle rejected a direct parquet upload because this competition accepts
-  submissions from Notebooks only. No successful leaderboard submission has
-  been made yet.
+  submissions from Notebooks only.
 - A temporary private Kaggle artifact dataset and inference kernel were
   created during setup, then deleted on 2026-11-16.
 - All WeChat/Feishu bridge experiments were removed at the user's request:
