@@ -1,0 +1,92 @@
+# Name That LLM Experiment Log - 2026-11-16
+
+## Context
+
+- Existing deployable submission: public LB 0.409.
+- Existing full-group OOF: 0.6394, which did not transfer to the hidden test.
+- Public MIT reproduction: grouped CV 0.418, public LB 0.389.
+- Public scored fallback: 0.696 notebook built from public data, models,
+  adapters, and kernels.
+
+## Sparse Prompt Validation
+
+The expanded OOF probabilities were resampled at 1, 2, 4, and 8 rows per
+prompt using 100 seeds. Reapplying centering and cluster balancing to the
+same OOF matrix does not remove the prompt-dependent information already
+present in those predictions.
+
+Selected two-row results:
+
+| Branch | Raw | Center | Balance |
+| --- | ---: | ---: | ---: |
+| Qwen embedding fusion | 0.5562 | 0.5450 | 0.5441 |
+| Cluster-balanced fusion | 0.6296 | 0.5944 | 0.5930 |
+| Rich stack | 0.6297 | 0.5948 | 0.5936 |
+| Stack blend | 0.6436 | 0.6175 | 0.6168 |
+
+The key finding is not that the raw numbers are deployable. It is that
+sampling rows after the OOF predictions were created cannot undo the
+full-group information used while fitting those branches. New branches must
+be trained without `group_relative`, prompt centering, or group balancing.
+
+## Style Encoders
+
+### StyleDistance
+
+- Model: `StyleDistance/styledistance`, RoBERTa-base, 768 dimensions.
+- Official train only:
+  - PCA256: OOF 0.2997.
+  - PCA256 plus absolute style features: OOF 0.3397.
+- Official train plus Open Pool v14, 1,500 rows per label:
+  - OOF 0.3682 across five prompt-grouped folds.
+  - Per-fold: 0.3481, 0.3759, 0.3704, 0.3907, 0.3557.
+
+The external pool adds about 2.9 points over the same official-only branch.
+The branch is cheap and group-independent, but it is not strong enough to
+replace the public fallback.
+
+### LUAR
+
+- Model: `rrivera1849/LUAR-MUD`, episode embedding, 512 dimensions.
+- Official train plus absolute style features: OOF 0.3219.
+- A 50:50 LUAR and StyleDistance blend reaches about 0.3642 before external
+  data, showing representation diversity but limited standalone quality.
+
+### Rejected Controls
+
+- A diagonal Gaussian classifier with group-relative features only on
+  inferred 2-5-row groups reached OOF 0.1612 on StyleDistance embeddings.
+  The partial-group transform was too noisy at this representation quality.
+- RidgeFT with PCA256, absolute style features, and 2,048 random features
+  reached OOF 0.1019. The official implementation remains useful as a
+  method reference, but this configuration is rejected.
+
+## Blend Diagnostics
+
+StyleDistance external OOF blended with existing branches:
+
+| Base | Base OOF | Best style weight | Blended OOF |
+| --- | ---: | ---: | ---: |
+| Compact TF-IDF | 0.3208 | 0.40 | 0.4163 |
+| Summary/funnel | 0.5268 | 0.30 | 0.5368 |
+| Qwen embedding fusion | 0.5545 | 0.10 | 0.5575 |
+| Existing rich stack blend | 0.6394 | 0.03 | 0.6390 |
+
+The result improves weak bases but has almost no effect on the existing rich
+stack. Given the hidden-test discrepancy, the stack number is not considered
+deployable evidence.
+
+## Deployment
+
+- The exact public 0.696 notebook was fetched from version 28 with all
+  dataset, kernel, and model sources.
+- Kaggle commit version 2 completed with all 35 inputs present and no mount
+  failures.
+- Code submission `58397368` was launched from that exact kernel version.
+
+## Next Gate
+
+Qwen3-14B QLoRA fold 0 is trained on external pool data, then on official
+train with a two-row-per-prompt validation subset. The branch is retained
+only if sparse validation reaches at least 0.60 and its errors are
+complementary to the public fallback.

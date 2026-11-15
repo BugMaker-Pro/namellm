@@ -283,6 +283,10 @@ def train_stage(
     max_steps: int,
     output_dir: Path,
     sparse_seed: int,
+    selected_layers: list[int],
+    num_layers: int,
+    checkpoint_every: int,
+    start_step: int = 0,
 ) -> dict[str, object]:
     train_loader = DataLoader(
         TextRows(
@@ -344,7 +348,7 @@ def train_stage(
     )
     criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
     deadline = time.monotonic() + hours * 3600
-    completed = 0
+    completed = start_step
     metrics: dict[str, object] = {"epochs": []}
     for epoch in range(1, epochs + 1):
         model.train()
@@ -382,6 +386,20 @@ def train_stage(
                         f"elapsed={time.time() - started:.1f}s",
                         flush=True,
                     )
+                if checkpoint_every > 0 and completed % checkpoint_every == 0:
+                    checkpoint_dir = (
+                        output_dir
+                        / f"stage{stage}_checkpoint_step{completed}"
+                    )
+                    save_checkpoint(
+                        model,
+                        tokenizer,
+                        checkpoint_dir,
+                        selected_layers,
+                        num_layers,
+                        max_length,
+                    )
+                    print(f"saved checkpoint {checkpoint_dir}", flush=True)
             if (max_steps > 0 and completed >= max_steps) or (
                 time.monotonic() >= deadline
             ):
@@ -464,6 +482,52 @@ def save_checkpoint(
     )
 
 
+def latest_checkpoint(output_dir: Path, stage: int) -> Path | None:
+    candidates = sorted(
+        output_dir.glob(f"stage{stage}_checkpoint_step*"),
+        key=lambda path: int(path.name.rsplit("step", 1)[-1]),
+    )
+    canonical = output_dir / f"stage{stage}"
+    if canonical.is_dir():
+        candidates.append(canonical)
+    return candidates[-1] if candidates else None
+
+
+def checkpoint_step(path: Path | None) -> int:
+    if path is None:
+        return 0
+    suffix = path.name.rsplit("step", 1)
+    if len(suffix) != 2 or not suffix[1].isdigit():
+        return 0
+    return int(suffix[1])
+
+
+def load_checkpoint(
+    model: AttributionModel,
+    checkpoint_dir: Path,
+) -> None:
+    from peft import PeftModel
+
+    if not isinstance(model.backbone, PeftModel):
+        model.backbone.load_adapter(
+            checkpoint_dir / "adapter",
+            adapter_name="default",
+            is_trainable=True,
+        )
+    else:
+        model.backbone.load_adapter(
+            checkpoint_dir / "adapter",
+            adapter_name="default",
+            is_trainable=True,
+        )
+    head = torch.load(
+        checkpoint_dir / "head.pt",
+        map_location="cuda",
+        weights_only=False,
+    )
+    model.head.load_state_dict(head)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-dir", default="Qwen/Qwen3-14B-Base")
@@ -486,6 +550,14 @@ def main() -> None:
     parser.add_argument("--stage1-per-label", type=int, default=500)
     parser.add_argument("--stage1-max-steps", type=int, default=0)
     parser.add_argument("--stage2-max-steps", type=int, default=0)
+    parser.add_argument("--checkpoint-every", type=int, default=50)
+    parser.add_argument(
+        "--resume-stage",
+        type=int,
+        choices=[0, 1, 2],
+        default=0,
+        help="Resume from the latest checkpoint of this stage.",
+    )
     parser.add_argument("--sparse-seed", type=int, default=20261116)
     parser.add_argument("--seed", type=int, default=20261116)
     parser.add_argument("--smoke", action="store_true")
@@ -560,30 +632,59 @@ def main() -> None:
         not args.no_4bit,
         args.lora_r,
     )
-    stage1_metrics = train_stage(
-        model,
-        tokenizer,
-        pool,
-        None,
-        1,
-        args.stage1_epochs,
-        args.stage1_lr,
-        args.stage1_hours,
-        args.max_length,
-        args.batch_size,
-        args.grad_accum,
-        args.stage1_max_steps,
-        output_dir,
-        args.sparse_seed,
-    )
-    save_checkpoint(
-        model,
-        tokenizer,
-        output_dir / "stage1",
-        selected_layers,
-        args.num_layers,
-        args.max_length,
-    )
+    stage1_start_step = 0
+    if args.resume_stage <= 1:
+        resume = latest_checkpoint(output_dir, 1)
+        if resume is not None:
+            load_checkpoint(model, resume)
+            stage1_start_step = checkpoint_step(resume)
+            print(
+                f"resumed stage1 from {resume} step={stage1_start_step}",
+                flush=True,
+            )
+    stage1_metrics = {}
+    if args.resume_stage < 2:
+        stage1_metrics = train_stage(
+            model,
+            tokenizer,
+            pool,
+            None,
+            1,
+            args.stage1_epochs,
+            args.stage1_lr,
+            args.stage1_hours,
+            args.max_length,
+            args.batch_size,
+            args.grad_accum,
+            args.stage1_max_steps,
+            output_dir,
+            args.sparse_seed,
+            selected_layers,
+            args.num_layers,
+            args.checkpoint_every,
+            stage1_start_step,
+        )
+        save_checkpoint(
+            model,
+            tokenizer,
+            output_dir / "stage1",
+            selected_layers,
+            args.num_layers,
+            args.max_length,
+        )
+    stage2_start_step = 0
+    if args.resume_stage == 2:
+        resume = latest_checkpoint(output_dir, 2)
+        if resume is None:
+            resume = latest_checkpoint(output_dir, 1)
+        if resume is None:
+            raise FileNotFoundError("No checkpoint available for resume")
+        load_checkpoint(model, resume)
+        stage2_start_step = checkpoint_step(resume)
+        print(
+            f"resumed stage2 from {resume} step={stage2_start_step}",
+            flush=True,
+        )
     stage2_metrics = train_stage(
         model,
         tokenizer,
@@ -599,6 +700,10 @@ def main() -> None:
         args.stage2_max_steps,
         output_dir,
         args.sparse_seed,
+        selected_layers,
+        args.num_layers,
+        args.checkpoint_every,
+        stage2_start_step,
     )
     save_checkpoint(
         model,

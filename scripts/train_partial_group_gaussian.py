@@ -5,7 +5,6 @@ import json
 import sys
 from pathlib import Path
 
-import joblib
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
@@ -62,7 +61,9 @@ class DiagonalGaussian:
             raise RuntimeError("Gaussian model is not fitted")
         x = features[:, None, :]
         diff = x - self.means_[None, :, :]
-        quadratic = (diff.square() / self.variances_[None, :, :]).sum(axis=2)
+        quadratic = (
+            np.square(diff) / self.variances_[None, :, :]
+        ).sum(axis=2)
         return self.log_norm_[None, :] - 0.5 * quadratic
 
 
