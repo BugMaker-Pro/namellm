@@ -9,6 +9,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import torch
+from scipy.sparse import hstack
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from torch import nn
@@ -129,6 +130,19 @@ def extra_features(
 
 
 def normalize(probabilities: np.ndarray) -> np.ndarray:
+    return probabilities / probabilities.sum(axis=1, keepdims=True)
+
+
+def logistic_probabilities(model, features) -> np.ndarray:
+    scores = np.asarray(features @ model.coef_.T, dtype=np.float64)
+    scores += np.asarray(model.intercept_, dtype=np.float64)
+    if scores.ndim == 1:
+        scores = scores[:, None]
+    if scores.shape[1] == 1:
+        positive = 1.0 / (1.0 + np.exp(-scores[:, 0]))
+        return np.column_stack([1.0 - positive, positive])
+    scores -= scores.max(axis=1, keepdims=True)
+    probabilities = np.exp(scores)
     return probabilities / probabilities.sum(axis=1, keepdims=True)
 
 
@@ -291,7 +305,7 @@ def extract_embedding_features(
                 mean = (hidden * mask_float).sum(dim=1) / counts
                 centered = (hidden - mean.unsqueeze(1)) * mask_float
                 std = (centered.square().sum(dim=1) / counts).sqrt()
-                last = hidden[0, length - 1]
+                last = hidden[0, int(length.item()) - 1]
                 if hidden.shape[1] > 1:
                     differences = (hidden[:, 1:] - hidden[:, :-1]).abs()
                     adjacent = (mask[:, 1:] & mask[:, :-1]).unsqueeze(-1)
@@ -344,7 +358,10 @@ def main() -> None:
     compact_matrix = hstack(
         [compact_matrix, compact["word"].transform(test["text"])]
     ).tocsr()
-    compact_probabilities = compact["model"].predict_proba(compact_matrix)
+    compact_probabilities = logistic_probabilities(
+        compact["model"],
+        compact_matrix,
+    )
 
     test_feature_values, layers = extract_embedding_features(
         test["text"].astype(str).tolist(),
@@ -373,8 +390,9 @@ def main() -> None:
             ]
         )
         branch_probabilities.append(
-            artifact["classifier"].predict_proba(
-                artifact["combined_scaler"].transform(combined)
+            logistic_probabilities(
+                artifact["classifier"],
+                artifact["combined_scaler"].transform(combined),
             )
         )
 
@@ -433,8 +451,9 @@ def main() -> None:
     ]
     stack_features = rich_features(branch_probabilities, centered)
     stack = joblib.load(ARTIFACT_DIR / "rich_stack.joblib")
-    probabilities = stack["model"].predict_proba(
-        stack["scaler"].transform(stack_features)
+    probabilities = logistic_probabilities(
+        stack["model"],
+        stack["scaler"].transform(stack_features),
     )
     probabilities = balance_probabilities(
         probabilities,

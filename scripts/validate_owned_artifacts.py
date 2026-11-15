@@ -19,6 +19,7 @@ from run_owned_kaggle_inference import (  # noqa: E402
     center_by_texts,
     extra_features,
     group_relative,
+    logistic_probabilities,
     rich_features,
     split_layers,
 )
@@ -51,7 +52,7 @@ def main() -> None:
         ]
     ).tocsr()
     branch_probabilities = [
-        compact["model"].predict_proba(compact_matrix)
+        logistic_probabilities(compact["model"], compact_matrix)
     ]
 
     feature_data = np.load(
@@ -81,8 +82,9 @@ def main() -> None:
             ]
         )
         branch_probabilities.append(
-            artifact["classifier"].predict_proba(
-                artifact["combined_scaler"].transform(combined)
+            logistic_probabilities(
+                artifact["classifier"],
+                artifact["combined_scaler"].transform(combined),
             )
         )
 
@@ -138,8 +140,9 @@ def main() -> None:
     ]
     stack_features = rich_features(branch_probabilities, centered)
     stack = joblib.load(artifact_dir / "rich_stack.joblib")
-    probabilities = stack["model"].predict_proba(
-        stack["scaler"].transform(stack_features)
+    probabilities = logistic_probabilities(
+        stack["model"],
+        stack["scaler"].transform(stack_features),
     )
     probabilities = balance_probabilities(
         probabilities,
