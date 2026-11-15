@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "public_0696",
+      "kind": "kaggle_notebook",
+      "url": "https://www.kaggle.com/code/alexchilton/name-that-llm-0-696-all-public-what-failed",
+      "license": "Apache-2.0",
+      "role": "fallback_submission",
+      "final_training": true,
+      "notes": "Public scored fallback; retain upstream attribution and artifact licenses."
+    },
+    {
+      "id": "open_pool_v14",
+      "kind": "kaggle_dataset",
+      "url": "https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool",
+      "license": "unknown",
+      "role": "external_training_candidate",
+      "final_training": false,
+      "notes": "Requires provenance, duplicate, label-fidelity, and license audit."
+    },
+    {
+      "id": "styledistance",
+      "kind": "huggingface_model",
+      "url": "https://huggingface.co/StyleDistance/styledistance",
+      "license": "MIT",
+      "role": "content_independent_style_encoder",
+      "final_training": true,
+      "notes": "RoBERTa-base, 768-dimensional mean-pooled embeddings."
+    },
+    {
+      "id": "luar_mud",
+      "kind": "huggingface_model",
+      "url": "https://huggingface.co/rrivera1849/LUAR-MUD",
+      "license": "Apache-2.0",
+      "role": "authorship_encoder_candidate",
+      "final_training": true,
+      "notes": "Requires custom-code loading and compatibility testing."
+    },
+    {
+      "id": "llmdet",
+      "kind": "github_repository",
+      "url": "https://github.com/TrustedLLM/LLMDet",
+      "license": "MIT",
+      "role": "proxy_perplexity_reference",
+      "final_training": true,
+      "notes": "Use only if it adds complementary errors to existing likelihood heads."
+    },
+    {
+      "id": "ridgeft",
+      "kind": "github_repository",
+      "url": "https://github.com/Vincent-HKUSTGZ/RidgeFT-Lifelong-MGT",
+      "license": "MIT",
+      "role": "class_balanced_ridge_reference",
+      "final_training": true,
+      "notes": "Candidate stacker for frozen style embeddings."
+    },
+    {
+      "id": "atlas",
+      "kind": "paper_and_github_repository",
+      "url": "https://arxiv.org/abs/2610.19583",
+      "code_url": "https://github.com/komseok0109/ATLAS",
+      "license": "no_repository_license",
+      "role": "method_reference",
+      "final_training": false,
+      "notes": "Implement from the paper unless the repository license is clarified."
+    },
+    {
+      "id": "openturingbench",
+      "kind": "huggingface_dataset",
+      "url": "https://huggingface.co/datasets/MLNTeam-Unical/OpenTuringBench",
+      "license": "CC-BY-NC-4.0",
+      "role": "benchmark_and_pretraining_candidate",
+      "final_training": false,
+      "notes": "Non-commercial license requires competition-rule review before use."
+    },
+    {
+      "id": "maabench",
+      "kind": "huggingface_dataset",
+      "url": "https://huggingface.co/datasets/ming9999/maabench",
+      "license": "CC-BY-NC-4.0",
+      "role": "distribution_shift_benchmark",
+      "final_training": false,
+      "notes": "Use for evaluation only unless the competition rules permit broader use."
+    },
+    {
+      "id": "m4gt_bench",
+      "kind": "github_repository",
+      "url": "https://github.com/mbzuai-nlp/M4GT-Bench",
+      "license": "no_repository_license",
+      "role": "detector_baseline_reference",
+      "final_training": false,
+      "notes": "Dataset terms must be checked separately from the repository."
+    },
+    {
+      "id": "multighostbench",
+      "kind": "github_repository",
+      "url": "https://github.com/GrecoMT/MultiGhostBench",
+      "license": "unknown",
+      "role": "distribution_shift_benchmark",
+      "final_training": false,
+      "notes": "Use to design robustness checks, not as unvetted training data."
+    },
+    {
+      "id": "authorship_survey",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2408.08946",
+      "license": "paper",
+      "role": "taxonomy_reference",
+      "final_training": false,
+      "notes": "Reference only."
+    }
+  ]
+}
