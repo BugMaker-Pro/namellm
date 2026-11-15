@@ -114,3 +114,18 @@ python -u scripts/train_external_qwen14.py \
   --stage2-max-steps 600 \
   --checkpoint-every 50
 ```
+
+## Remote Access Caveat
+
+The Colab runtime was launched with a resumable Qwen14 process. The CLI
+OAuth refresh later timed out because the local proxy lost its upstream
+connection. The remote training process was still active at the last
+successful probe (stage1 step 420, loss around 2.0-2.3). Local portable
+backups through step 400 are retained in `artifacts/qwen14_backup/`.
+
+To take over the running session after re-authentication:
+
+```bash
+colab status -s namellm
+colab ssh -s namellm -- bash -lc "tail -50 /content/namellm/qwen14_fold0_resumeable.log"
+```
