@@ -90,3 +90,27 @@ Qwen3-14B QLoRA fold 0 is trained on external pool data, then on official
 train with a two-row-per-prompt validation subset. The branch is retained
 only if sparse validation reaches at least 0.60 and its errors are
 complementary to the public fallback.
+
+Qwen14 checkpoints are saved every 50 optimizer steps. The first two
+portable backups are:
+
+| Step | SHA256 |
+| ---: | --- |
+| 100 | `6EFAED2488F953EB216DA08A3F6E1431AE9AEA71FB54D5B78A838B83AA2F88C8` |
+| 200 | `BC0EEACB1D68AD25BD9D3C5B57A73C50EF18941850B09193B79C328AEAC721C3` |
+| 300 | `F0639F14E6AE32899279831C77F59D4F181FA5EE00B476ED421F16F22D842E28` |
+
+Resume command:
+
+```bash
+cd /content/namellm
+export HF_HOME=/content/hf_cache
+python -u scripts/train_external_qwen14.py \
+  --model-dir Qwen/Qwen3-14B-Base \
+  --pool data/style_pool_1500.parquet \
+  --output-dir /content/runs/qwen14_fold0_resumeable \
+  --resume-stage 1 \
+  --stage1-max-steps 800 \
+  --stage2-max-steps 600 \
+  --checkpoint-every 50
+```
