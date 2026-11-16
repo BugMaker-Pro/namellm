@@ -427,9 +427,12 @@ Prompt-level validation details:
 - Do not use posthoc sampling of complete 18-row OOF as hidden-test evidence.
 - Correct pairwise GLM OOF must train on true-GLM rows but predict every
   outer-validation row.
-- V1 160-token GLM sparse2 result: **0.6710**, versus 0.6447 for the local
-  stack proxy, paired delta **+0.0263**, 50/50 seeds, bootstrap interval
-  **[+0.0229, +0.0294]**.
+- Strict V1 160-token GLM sparse2 result uses the prompt-independent
+  StyleDistance external branch: **0.4047**, versus 0.3717, paired delta
+  **+0.0330**, 49/50 seeds, bootstrap interval **[+0.0300, +0.0359]**.
+- The stack-blend sparse2 diagnostic is 0.6447 -> 0.6710, but its parent has
+  prompt-dependent full-group operations, so it is not an accepted strict
+  baseline.
 - Track every public submission in `validation/lb_calibration.csv`; use
   matched sparse2-to-LB deltas rather than claiming absolute OOF equals LB.
 

@@ -1,4 +1,4 @@
 variant,parent,submission_ref,public_lb,sparse2_mean,sparse2_std,sparse2_p05,seed_win_rate,paired_delta_vs_parent,bootstrap_ci_low,bootstrap_ci_high,status,notes
 public_0696,,58397368,0.696,,,,,,,,reference,Verified public fallback baseline
 public_0701,public_0696,,0.701,,,,,,,,reference,Public 0.701 sibling residual plus typographic invariants
-s1_glm160,public_0701,,TBD,0.671027,0.028368,0.631393,1.000000,0.026330,0.022944,0.029440,pending_lb,0.701 plus 160-token GLM multiclass and pairwise gate
+s1_glm160,public_0701,,TBD,0.404743,0.022813,0.369443,0.980000,0.032995,0.029972,0.035926,pending_lb,Strict prompt-independent style baseline plus 160-token GLM multiclass and pairwise gate

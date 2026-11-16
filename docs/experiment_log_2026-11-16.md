@@ -151,12 +151,16 @@ python scripts/evaluate_glm_likelihood.py `
   OOF now trains the pair model on true-GLM rows and predicts every
   outer-validation row.
 - Correct V1 full-18 OOF: 0.6394 -> 0.6668.
-- Test-like sparse2:
-  - local stack baseline: 0.6447 ± 0.0275
-  - V1 160-token GLM: 0.6710 ± 0.0284
-  - paired delta: **+0.0263**
-  - seed win rate: **50/50**
-  - prompt bootstrap delta 95% interval: **[+0.0229, +0.0294]**
+- Strict test-like sparse2 uses the prompt-independent StyleDistance external
+  branch as the parent:
+  - style baseline: 0.3717 ± 0.0228
+  - V1 160-token GLM: 0.4047 ± 0.0228
+  - paired delta: **+0.0330**
+  - seed win rate: **49/50**
+  - prompt bootstrap delta 95% interval: **[+0.0300, +0.0359]**
+- A stack-blend diagnostic gives 0.6447 -> 0.6710, but that baseline contains
+  prompt-dependent full-group operations. It is stored separately as a
+  diagnostic and is not the accepted sparse2 standard.
 - Per-seed results are in
   `validation/sparse2_v1_per_seed.csv`; summary is in
   `validation/sparse2_v1_results.json`.

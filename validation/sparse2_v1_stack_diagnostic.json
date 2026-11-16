@@ -1,0 +1,54 @@
+{
+  "protocol": {
+    "path": "validation\\sparse2_protocol.json",
+    "sha256": "c5459312e93fcca2e34385f8b3961116fc7291b677ce933e9d600d8e16797d68",
+    "outer_folds": 5,
+    "seeds": 50,
+    "seed_start": 20261116,
+    "responses_per_prompt": 2,
+    "bootstrap_replicates": 500,
+    "overrides": {
+      "seeds": false,
+      "responses_per_prompt": false,
+      "bootstrap_replicates": false
+    }
+  },
+  "baseline": "stack_blend",
+  "class_coverage": {
+    "present_classes": 18,
+    "expected_classes": 18
+  },
+  "candidates": {
+    "stack_blend": {
+      "score": {
+        "mean": 0.6446964980966596,
+        "std": 0.0274747363746868,
+        "p05": 0.6027886220795793,
+        "p50": 0.6400084467283114,
+        "p95": 0.691517540472088
+      }
+    },
+    "v1_glm160": {
+      "score": {
+        "mean": 0.6710265686049642,
+        "std": 0.028368249391845388,
+        "p05": 0.6313927471268073,
+        "p50": 0.6687583876275714,
+        "p95": 0.7233804445472684
+      },
+      "paired_delta": {
+        "mean": 0.02633007050830444,
+        "std": 0.011093001556213223,
+        "p05": 0.010718456129640404,
+        "p50": 0.026643937489525704,
+        "p95": 0.041669410454240156,
+        "win_rate": 1.0
+      },
+      "bootstrap_delta_mean": {
+        "mean": 0.026165834537320062,
+        "p025": 0.022943828542606223,
+        "p975": 0.029439718289837897
+      }
+    }
+  }
+}
