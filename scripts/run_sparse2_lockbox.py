@@ -410,6 +410,35 @@ def main() -> None:
                 "p025": float(np.quantile(bootstrap_means, 0.025)),
                 "p975": float(np.quantile(bootstrap_means, 0.975)),
             }
+            acceptance = protocol.get("acceptance", {})
+            mean_delta = candidate_result["paired_delta"]["mean"]
+            win_rate = candidate_result["paired_delta"]["win_rate"]
+            ci_low = candidate_result["bootstrap_delta_mean"]["p025"]
+            candidate_result["acceptance"] = {
+                name: {
+                    "min_delta": threshold,
+                    "passed": bool(
+                        mean_delta >= threshold
+                        and win_rate
+                        >= float(
+                            acceptance.get(
+                                "minimum_win_rate",
+                                0.0,
+                            )
+                        )
+                        and (
+                            ci_low > 0
+                            if acceptance.get(
+                                "bootstrap_ci_lower_must_exceed_zero",
+                                False,
+                            )
+                            else True
+                        )
+                    ),
+                }
+                for name, threshold in acceptance.items()
+                if name.endswith("_delta")
+            }
         result["candidates"][name] = candidate_result
 
     output_path = Path(args.output)

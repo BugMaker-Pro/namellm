@@ -48,6 +48,20 @@
         "mean": 0.03300213312401874,
         "p025": 0.029972111327368132,
         "p975": 0.03592619186836335
+      },
+      "acceptance": {
+        "small_increment_delta": {
+          "min_delta": 0.002,
+          "passed": true
+        },
+        "new_reader_delta": {
+          "min_delta": 0.004,
+          "passed": true
+        },
+        "fallback_reader_delta": {
+          "min_delta": 0.003,
+          "passed": true
+        }
       }
     }
   }
