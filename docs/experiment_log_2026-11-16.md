@@ -158,6 +158,9 @@ python scripts/evaluate_glm_likelihood.py `
   - paired delta: **+0.0330**
   - seed win rate: **49/50**
   - prompt bootstrap delta 95% interval: **[+0.0300, +0.0359]**
+- An independent 50-seed replication gives sparse2 **0.4040 vs 0.3728**,
+  paired delta **+0.0312**, 50/50 seeds, bootstrap interval
+  **[+0.0284, +0.0340]**.
 - A stack-blend diagnostic gives 0.6447 -> 0.6710, but that baseline contains
   prompt-dependent full-group operations. It is stored separately as a
   diagnostic and is not the accepted sparse2 standard.

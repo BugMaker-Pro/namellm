@@ -430,6 +430,8 @@ Prompt-level validation details:
 - Strict V1 160-token GLM sparse2 result uses the prompt-independent
   StyleDistance external branch: **0.4047**, versus 0.3717, paired delta
   **+0.0330**, 49/50 seeds, bootstrap interval **[+0.0300, +0.0359]**.
+- Independent sparse2 replication: 0.4040 versus 0.3728, paired delta
+  **+0.0312**, 50/50 seeds, bootstrap interval **[+0.0284, +0.0340]**.
 - The stack-blend sparse2 diagnostic is 0.6447 -> 0.6710, but its parent has
   prompt-dependent full-group operations, so it is not an accepted strict
   baseline.

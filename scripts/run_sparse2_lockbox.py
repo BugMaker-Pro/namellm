@@ -210,6 +210,7 @@ def main() -> None:
     )
     parser.add_argument("--baseline", required=True)
     parser.add_argument("--seeds", type=int)
+    parser.add_argument("--seed-start", type=int)
     parser.add_argument("--bootstrap-replicates", type=int)
     parser.add_argument("--responses-per-prompt", type=int)
     parser.add_argument(
@@ -226,7 +227,7 @@ def main() -> None:
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
     outer_folds = int(protocol["outer_folds"])
     seeds = int(args.seeds or protocol["seeds"])
-    seed_start = int(protocol["seed_start"])
+    seed_start = int(args.seed_start or protocol["seed_start"])
     responses_per_prompt = int(
         args.responses_per_prompt
         or protocol["responses_per_prompt"]
@@ -375,6 +376,7 @@ def main() -> None:
             "bootstrap_replicates": bootstrap_replicates,
             "overrides": {
                 "seeds": args.seeds is not None,
+                "seed_start": args.seed_start is not None,
                 "responses_per_prompt": (
                     args.responses_per_prompt is not None
                 ),

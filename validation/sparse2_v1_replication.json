@@ -1,0 +1,69 @@
+{
+  "protocol": {
+    "path": "validation\\sparse2_protocol.json",
+    "sha256": "c5459312e93fcca2e34385f8b3961116fc7291b677ce933e9d600d8e16797d68",
+    "outer_folds": 5,
+    "seeds": 50,
+    "seed_start": 20261166,
+    "responses_per_prompt": 2,
+    "bootstrap_replicates": 500,
+    "overrides": {
+      "seeds": false,
+      "seed_start": true,
+      "responses_per_prompt": false,
+      "bootstrap_replicates": false
+    }
+  },
+  "baseline": "style_external",
+  "class_coverage": {
+    "present_classes": 18,
+    "expected_classes": 18
+  },
+  "candidates": {
+    "style_external": {
+      "score": {
+        "mean": 0.37276018317432746,
+        "std": 0.021961122557372762,
+        "p05": 0.34203415576333795,
+        "p50": 0.3760116775209655,
+        "p95": 0.40379882309339504
+      }
+    },
+    "v1_glm160_style": {
+      "score": {
+        "mean": 0.40395298287964093,
+        "std": 0.02300038182700287,
+        "p05": 0.36437535164831353,
+        "p50": 0.40747196166120314,
+        "p95": 0.4357462536364755
+      },
+      "paired_delta": {
+        "mean": 0.031192799705313537,
+        "std": 0.010741859085858686,
+        "p05": 0.017426762371615303,
+        "p50": 0.029869745041111506,
+        "p95": 0.0493555926644162,
+        "win_rate": 1.0
+      },
+      "bootstrap_delta_mean": {
+        "mean": 0.031198360298383382,
+        "p025": 0.02843245532075831,
+        "p975": 0.034049368575471695
+      },
+      "acceptance": {
+        "small_increment_delta": {
+          "min_delta": 0.002,
+          "passed": true
+        },
+        "new_reader_delta": {
+          "min_delta": 0.004,
+          "passed": true
+        },
+        "fallback_reader_delta": {
+          "min_delta": 0.003,
+          "passed": true
+        }
+      }
+    }
+  }
+}
