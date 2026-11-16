@@ -11,6 +11,15 @@
       "notes": "Public scored fallback; retain upstream attribution and artifact licenses."
     },
     {
+      "id": "glm_likelihood_train",
+      "kind": "kaggle_notebook",
+      "url": "https://www.kaggle.com/code/estopadilla/ntl-glm-likelihood-train",
+      "license": "unknown",
+      "role": "glm_likelihood_features_and_reference_model",
+      "final_training": true,
+      "notes": "Version 3 output supplies train features for GLM-5.3 and GLM-5.3-Flash; apply competition-rule and attribution review."
+    },
+    {
       "id": "open_pool_v14",
       "kind": "kaggle_dataset",
       "url": "https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool",
