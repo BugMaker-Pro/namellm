@@ -391,6 +391,29 @@ Prompt-level validation details:
   tools, but no WeChat/Feishu autostart or background bridge.
 - The notebook optional environment was restored after removing `lark-oapi`.
 
+### 2026-11-16 Later State
+
+- Public kernel `alexchilton/name-that-llm-0-701-all-public-what-failed`
+  reached 0.701 by adding a mass-preserving sibling residual and three
+  typographic invariants on top of the 0.696 line.
+- New dataset `nakagawaren0805/nllm-glm-logits-train` provides aligned
+  160-token GLM likelihoods. Its multiclass GLM-pair OOF is 0.6600 and the
+  GLM-internal pairwise OOF is 0.8867 (fixed `C=0.5`: 0.8933).
+- `configs/glm_likelihood_model_160.json` and
+  `configs/glm_pairwise_model_160.json` are the refreshed deployable models.
+  On the local stack blend, reference weight 1.25 gives OOF 0.6664.
+- The private experiment kernel
+  `yyyyhhhhwww/name-that-llm-0701-glm-pairwise` derives from the 0.701
+  notebook, replaces `ll_model.json` inside the V1 payload, inserts the
+  pairwise gate between V1 and the sibling residual, and preserves the
+  non-GLM 0.701 post-processing.
+- Public Gemini frozen DeBERTa features were audited and rejected: their
+  benchmark champion logits reached only about 0.27 within-Gemini balanced
+  accuracy.
+- Qwen3-14B QLoRA is still training on Colab. At the latest probe it had
+  reached stage1 step 500, with checkpoints through that step on the remote
+  runtime.
+
 ## Browser Notes
 
 - Launch Edge directly, for example:
