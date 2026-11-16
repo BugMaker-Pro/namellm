@@ -83,6 +83,8 @@ deployable evidence.
 - Kaggle commit version 2 completed with all 35 inputs present and no mount
   failures.
 - Code submission `58397368` was launched from that exact kernel version.
+- Submission result: **public LB 0.696**. The account is around rank 501 of
+  6,063 teams; the current leader is 0.775.
 
 ## Next Gate
 

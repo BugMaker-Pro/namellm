@@ -351,9 +351,9 @@ Prompt-level validation details:
 ## Immediate Next Work
 
 1. Treat the public `alexchilton/name-that-llm-0-696-all-public-what-failed`
-   kernel version 28 as the safe fallback. It is mirrored privately at
+   kernel version 28 as the safe baseline. It is mirrored privately at
    `yyyyhhhhwww/name-that-llm-0696-fallback`; commit version 2 passed all 35
-   input-mount checks and submission `58397368` was launched from it.
+   input-mount checks and submission `58397368` scored **0.696** public LB.
 2. Use `scripts/evaluate_sparse_prompt_validation.py` for prompt-sparse
    diagnostics. Reapplying center/balance to existing full-group OOF is a
    negative control, not evidence of hidden-test performance.
@@ -364,15 +364,16 @@ Prompt-level validation details:
    0 with resumable stage checkpoints; retain it only if two-row sparse
    validation reaches at least 0.60 and the blend gate shows complementary
    errors.
-5. Wait for submission `58397368` to receive its public score. Do not replace
-   the fallback with a lower-scoring experiment.
+5. Submission `58397368` scored 0.696 and the account is around rank 501 of
+   6,063 teams. Do not replace it with an unvalidated experiment.
 
 ## Submission And Session Status
 
 - The actual best prior public LB is **0.409** (submission `58393311`).
   The full-group OOF 0.6394 does not transfer and is no longer a deployment
   estimate.
-- Submission `58397368` uses the public 0.696 fallback and is PENDING.
+- Submission `58397368` uses the public 0.696 fallback and is COMPLETE with
+  public score **0.696**.
 - The MIT competition reproduction reports grouped CV 0.418 and public LB
   0.389, matching the observed local-to-LB failure mode.
 - Kaggle rejected a direct parquet upload because this competition accepts
