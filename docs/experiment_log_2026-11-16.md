@@ -132,6 +132,45 @@ python scripts/evaluate_glm_likelihood.py `
   notebook and appends one post-V1 cell. A failure in that cell keeps the
   existing V1 submission.
 
+## Public 0.701 And 160-Token GLM Refresh
+
+- Public kernel `alexchilton/name-that-llm-0-701-all-public-what-failed`
+  scored **0.701** by adding two stages to the 0.696 line:
+  a mass-preserving sibling residual on non-GLM rows and three typographic
+  invariants.
+- The public 0.701 notes show that stronger sibling TF-IDF evidence and
+  additional mined vetoes are close to saturated. The next expected gain must
+  come from a new reader rather than more reweighting.
+- New public dataset `nakagawaren0805/nllm-glm-logits-train` provides
+  train likelihoods for both GLMs at the deployment cut of exactly 160
+  tokens.
+- With the 160-token features, GLM-pair multiclass accuracy is **0.6600**
+  and pairwise accuracy is **0.8867** under nested 10-fold CV. Fixed
+  pairwise `C=0.5` reaches **0.8933**.
+- Adding the new multiclass member at reference weight 1.25 and the new
+  pairwise gate raises the local stack blend from 0.6394 to **0.6664**.
+  The direct fixed-weight optimum is 0.6676 at an effective weight near
+  0.35.
+- The new models are:
+  - `configs/glm_likelihood_model_160.json`
+  - `configs/glm_pairwise_model_160.json`
+- The generated private kernel now derives from the 0.701 notebook, replaces
+  `ll_model.json` inside the embedded V1 payload, inserts the pairwise gate
+  between V1 and the sibling residual, and leaves the 0.701 non-GLM
+  post-processing intact.
+- The experiment kernel is
+  `yyyyhhhhwww/name-that-llm-0701-glm-pairwise`.
+
+### Rejected Gemini Signal
+
+- `anilmittal/ntl-deberta-frozen-gemini-features` was audited as a possible
+  new Gemini sibling reader. Its benchmark champion logits reached only
+  about **0.27** within-Gemini balanced accuracy after optimal label mapping
+  and were rejected.
+- Open Pool TF-IDF Gemini, GPT and Claude pairwise specialists also failed:
+  Gemini 3.7 vs 3.8 reached about 0.57, below the current stack's 0.67
+  within-pair accuracy.
+
 ## Next Gate
 
 Qwen3-14B QLoRA fold 0 is trained on external pool data, then on official
@@ -139,8 +178,8 @@ train with a two-row-per-prompt validation subset. The branch is retained
 only if sparse validation reaches at least 0.60 and its errors are
 complementary to the public fallback.
 
-Qwen14 checkpoints are saved every 50 optimizer steps. The first two
-portable backups are:
+Qwen14 checkpoints are saved every 50 optimizer steps. Local portable
+backups currently cover steps 100, 200 and 300:
 
 | Step | SHA256 |
 | ---: | --- |
@@ -163,13 +202,11 @@ python -u scripts/train_external_qwen14.py \
   --checkpoint-every 50
 ```
 
-## Remote Access Caveat
+## Remote Access Status
 
-The Colab runtime was launched with a resumable Qwen14 process. The CLI
-OAuth refresh later timed out because the local proxy lost its upstream
-connection. The remote training process was still active at the last
-successful probe (stage1 step 420, loss around 2.0-2.3). Local portable
-backups through step 400 are retained in `artifacts/qwen14_backup/`.
+The resumable Qwen14 process is active. At the latest probe it had resumed
+from step 300, reached stage1 step 500, used 11.7 GB of the T4, and continued
+at 100% GPU utilization. Remote checkpoints now exist through step 500.
 
 To take over the running session after re-authentication:
 

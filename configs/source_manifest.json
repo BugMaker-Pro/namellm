@@ -20,6 +20,24 @@
       "notes": "Version 3 output supplies train features for GLM-5.3 and GLM-5.3-Flash; apply competition-rule and attribution review."
     },
     {
+      "id": "glm_logits_train_160",
+      "kind": "kaggle_dataset",
+      "url": "https://www.kaggle.com/datasets/nakagawaren0805/nllm-glm-logits-train",
+      "license": "CC0-1.0",
+      "role": "glm_160_token_likelihood_features",
+      "final_training": true,
+      "notes": "2,699 aligned train rows for GLM-5.3 and GLM-5.3-Flash with per-token lp, entropy and rank at max_text_tokens=160."
+    },
+    {
+      "id": "deberta_frozen_gemini_features",
+      "kind": "kaggle_dataset",
+      "url": "https://www.kaggle.com/datasets/anilmittal/ntl-deberta-frozen-gemini-features",
+      "license": "CC0-1.0",
+      "role": "gemini_sibling_diagnostic",
+      "final_training": false,
+      "notes": "Frozen DeBERTa Gemini benchmark was audited but rejected because champion within-Gemini balanced accuracy was only about 0.27."
+    },
+    {
       "id": "open_pool_v14",
       "kind": "kaggle_dataset",
       "url": "https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool",

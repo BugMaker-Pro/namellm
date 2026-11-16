@@ -800,6 +800,12 @@ def main() -> None:
         help="Optional JSON model for GLM class-internal reranking.",
     )
     parser.add_argument("--pairwise-c", type=float, default=0.30)
+    parser.add_argument(
+        "--multiclass-model-output",
+        help="Optional V1-compatible multiclass likelihood model JSON.",
+    )
+    parser.add_argument("--multiclass-c", type=float, default=0.03)
+    parser.add_argument("--multiclass-w", type=float, default=1.0)
     args = parser.parse_args()
 
     frame, y, groups, feature_columns, reference_model = load_features(
@@ -888,6 +894,54 @@ def main() -> None:
                     "coef": classifier.coef_[0].tolist(),
                     "intercept": float(classifier.intercept_[0]),
                     "train_rows": int(pair_mask.sum()),
+                    "source": {
+                        "flash_features": str(args.flash_features),
+                        "glm53_features": str(args.glm53_features),
+                    },
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        print(f"saved {model_path}")
+    if args.multiclass_model_output:
+        scaler = StandardScaler().fit(x)
+        classifier = LogisticRegression(
+            C=args.multiclass_c,
+            class_weight="balanced",
+            max_iter=3000,
+            solver="lbfgs",
+        )
+        classifier.fit(scaler.transform(x), y)
+        model_path = Path(args.multiclass_model_output)
+        model_path.parent.mkdir(parents=True, exist_ok=True)
+        tokens_per_char = float(
+            (
+                frame["flash:n_tok"]
+                / frame.index.map(
+                    pd.read_csv(
+                        args.train_csv,
+                        dtype={"id": str},
+                    ).set_index("id")["text"].fillna("").astype(str).str.len()
+                ).to_numpy()
+            ).mean()
+        )
+        model_path.write_text(
+            json.dumps(
+                {
+                    "format": "ntl-v1-ll-model-1",
+                    "features": feature_columns,
+                    "diff_features": reference_model["diff_features"],
+                    "mean": scaler.mean_.tolist(),
+                    "scale": scaler.scale_.tolist(),
+                    "coef": classifier.coef_.tolist(),
+                    "intercept": classifier.intercept_.tolist(),
+                    "classes": list(LABELS),
+                    "C": args.multiclass_c,
+                    "W": args.multiclass_w,
+                    "entropy_ref": float(reference_model["entropy_ref"]),
+                    "max_text_tokens": 160,
+                    "tok_per_char": tokens_per_char,
                     "source": {
                         "flash_features": str(args.flash_features),
                         "glm53_features": str(args.glm53_features),

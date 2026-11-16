@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import base64
+import hashlib
+import io
 import json
+import re
+import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -176,10 +181,68 @@ except Exception:
 '''
 
 
+def replace_v1_likelihood_model(
+    notebook: dict,
+    ll_model_path: Path,
+) -> str:
+    model_bytes = ll_model_path.read_bytes()
+    for cell in notebook["cells"]:
+        source = "".join(cell.get("source", []))
+        if "V1_PAYLOAD =" not in source:
+            continue
+        payload_match = re.search(
+            r"V1_PAYLOAD\s*=\s*('(?:[^'\\]|\\.)*'|\"(?:[^\"\\]|\\.)*\")",
+            source,
+        )
+        if payload_match is None:
+            continue
+        raw = base64.b64decode(ast.literal_eval(payload_match.group(1)))
+        members = []
+        with tarfile.open(fileobj=io.BytesIO(raw), mode="r:gz") as archive:
+            for member in archive.getmembers():
+                extent = archive.extractfile(member)
+                data = extent.read() if extent is not None else b""
+                if member.name == "ll_model.json":
+                    data = model_bytes
+                members.append((member, data))
+        output = io.BytesIO()
+        with tarfile.open(fileobj=output, mode="w:gz") as archive:
+            for member, data in members:
+                info = tarfile.TarInfo(member.name)
+                info.mode = member.mode
+                info.mtime = member.mtime
+                info.size = len(data)
+                archive.addfile(info, io.BytesIO(data))
+        encoded = base64.b64encode(output.getvalue()).decode("ascii")
+        digest = hashlib.sha256(output.getvalue()).hexdigest()
+        source = (
+            source[: payload_match.start(1)]
+            + repr(encoded)
+            + source[payload_match.end(1) :]
+        )
+        source, replacements = re.subn(
+            r'assert hashlib\.sha256\(_raw\)\.hexdigest\(\) == "[0-9a-f]+"',
+            (
+                'assert hashlib.sha256(_raw).hexdigest() == '
+                f'"{digest}"'
+            ),
+            source,
+        )
+        if replacements != 1:
+            raise ValueError("Could not update the V1 payload hash assertion")
+        cell["source"] = [line + "\n" for line in source.splitlines()]
+        return digest
+    raise ValueError("Could not locate the V1 payload")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", default=str(DEFAULT_SOURCE))
     parser.add_argument("--pair-model", default=str(DEFAULT_PAIR_MODEL))
+    parser.add_argument(
+        "--ll-model",
+        help="Optional replacement ll_model.json inside the V1 payload.",
+    )
     parser.add_argument("--output-dir", required=True)
     parser.add_argument(
         "--ref",
@@ -201,6 +264,12 @@ def main() -> None:
         "__PAIR_MODEL_B64__",
         pair_b64,
     ).strip()
+    payload_sha = None
+    if args.ll_model:
+        payload_sha = replace_v1_likelihood_model(
+            notebook,
+            Path(args.ll_model),
+        )
 
     notebook["cells"] = [
         cell
@@ -261,7 +330,8 @@ def main() -> None:
     )
     print(
         f"built {output_dir} cells={len(notebook['cells'])} "
-        f"inserted={insert_at}"
+        f"inserted={insert_at} "
+        f"payload_sha256={payload_sha or 'unchanged'}"
     )
 
 

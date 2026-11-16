@@ -120,8 +120,7 @@ def main() -> None:
     parser.add_argument(
         "--multiclass-weight",
         type=float,
-        default=1.0,
-        help="Reference weight before entropy temperature matching.",
+        help="Override reference weight before entropy temperature matching.",
     )
     parser.add_argument("--output", required=True)
     parser.add_argument("--report")
@@ -201,9 +200,12 @@ def main() -> None:
         base_log_probabilities,
         float(ll_model["entropy_ref"]),
     )
-    likelihood_weight = (
-        args.multiclass_weight / temperature
+    reference_weight = (
+        args.multiclass_weight
+        if args.multiclass_weight is not None
+        else float(ll_model["W"])
     )
+    likelihood_weight = reference_weight / temperature
     first_pass = base_predictions.copy()
     first_pass[selected_with_features] = (
         base_log_probabilities[selected_with_features]
@@ -252,7 +254,7 @@ def main() -> None:
         "selected_rows": len(selected_with_features),
         "gated_rows": len(gate),
         "temperature": temperature,
-        "reference_multiclass_weight": args.multiclass_weight,
+        "reference_multiclass_weight": reference_weight,
         "model_W": float(ll_model["W"]),
         "likelihood_weight": likelihood_weight,
         "changed_rows": int((predictions != base_predictions).sum()),
