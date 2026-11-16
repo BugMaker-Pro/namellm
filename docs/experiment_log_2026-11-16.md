@@ -111,6 +111,9 @@ deployable evidence.
 - A 10-fold prompt-grouped rerun gives 0.6620 with the entropy-calibrated
   gate, improving 10/10 folds and 99/100 sparse probes. The 18-class member
   rises to 0.2223 and its GLM-pair accuracy to 0.6300.
+- A three-class `{claude-fable-5, glm-5.3, glm-5.3-flash}` extension scored
+  only 0.1588 on its restricted subset. It changed many gate rows for a
+  negligible final gain, so it was rejected.
 - Reproduction:
 
 ```powershell
