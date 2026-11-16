@@ -119,6 +119,11 @@ class Sparse2LockboxTest(unittest.TestCase):
                 "seed_start": 17,
                 "responses_per_prompt": 2,
                 "bootstrap_replicates": 3,
+                "acceptance": {
+                    "new_reader_delta": 0.004,
+                    "minimum_win_rate": 0.8,
+                    "bootstrap_ci_lower_must_exceed_zero": True,
+                },
             }
             protocol_path = directory / "protocol.json"
             protocol_path.write_text(json.dumps(protocol))
@@ -158,6 +163,11 @@ class Sparse2LockboxTest(unittest.TestCase):
             self.assertAlmostEqual(
                 result["candidates"]["perfect"]["score"]["mean"],
                 1.0,
+            )
+            self.assertTrue(
+                result["candidates"]["perfect"]["acceptance"][
+                    "new_reader_delta"
+                ]["passed"]
             )
 
 
