@@ -170,6 +170,11 @@ python scripts/evaluate_glm_likelihood.py `
 - Open Pool TF-IDF Gemini, GPT and Claude pairwise specialists also failed:
   Gemini 3.7 vs 3.8 reached about 0.57, below the current stack's 0.67
   within-pair accuracy.
+- The W11 OOF artifact's Gaussian DeBERTa head looked complementary on its
+  own 1,403-row diagnostic subset, but it is not a deployable model artifact,
+  its license is unknown, and the same DeBERTa/geometric-fusion lineage is
+  already present in the 0.684-0.701 public stack. It is not used in the
+  submission.
 
 ## Next Gate
 

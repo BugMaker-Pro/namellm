@@ -38,6 +38,15 @@
       "notes": "Frozen DeBERTa Gemini benchmark was audited but rejected because champion within-Gemini balanced accuracy was only about 0.27."
     },
     {
+      "id": "w11_oof_eval",
+      "kind": "kaggle_dataset",
+      "url": "https://www.kaggle.com/datasets/xiewenwei29/name-that-llm-w11-oof-eval",
+      "license": "unknown",
+      "role": "deberta_head_diagnostic_only",
+      "final_training": false,
+      "notes": "OOF diagnostic only; the underlying DeBERTa/geometric fusion line is already represented in the 0.684-0.701 public lineage and the dataset license is unknown."
+    },
+    {
       "id": "open_pool_v14",
       "kind": "kaggle_dataset",
       "url": "https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool",
