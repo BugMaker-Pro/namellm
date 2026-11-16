@@ -5,6 +5,7 @@ import hashlib
 import importlib
 import json
 import sys
+import warnings
 from collections import Counter
 from pathlib import Path
 from typing import Callable
@@ -67,6 +68,15 @@ def normalize_probabilities(values: np.ndarray) -> np.ndarray:
     return values / totals
 
 
+def balanced_score(
+    targets: np.ndarray,
+    predictions: np.ndarray,
+) -> float:
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        return float(balanced_accuracy_score(targets, predictions))
+
+
 def make_fold_assignment(
     frame: pd.DataFrame,
     labels: np.ndarray,
@@ -121,11 +131,11 @@ def bootstrap_prompt_delta(
         rows = np.concatenate(
             [by_prompt[prompt] for prompt in sampled_prompts]
         )
-        base_score = balanced_accuracy_score(
+        base_score = balanced_score(
             labels[rows],
             baseline_predictions[rows],
         )
-        candidate_score = balanced_accuracy_score(
+        candidate_score = balanced_score(
             labels[rows],
             candidate_predictions[rows],
         )
@@ -317,11 +327,9 @@ def main() -> None:
             for name, probabilities in seed_probabilities.items()
         }
         for name in candidates:
-            score = float(
-                balanced_accuracy_score(
-                    sampled_labels,
-                    predictions[name],
-                )
+            score = balanced_score(
+                sampled_labels,
+                predictions[name],
             )
             all_scores[name].append(score)
             per_seed_rows.append(
