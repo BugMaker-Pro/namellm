@@ -166,6 +166,10 @@ python scripts/evaluate_glm_likelihood.py `
   `validation/sparse2_v1_results.json`.
 - Real LB scores are recorded in `validation/lb_calibration.csv`. The V1 LB
   row remains pending until the kernel finishes and is submitted.
+- Fold-specific Qwen14 gate:
+  `scripts/evaluate_qwen14_sparse2.py`. It evaluates the saved fold-0 stage2
+  probabilities over 50 two-row seeds and reports new-reader and fallback
+  pass/fail decisions.
 
 ## Public 0.701 And 160-Token GLM Refresh
 

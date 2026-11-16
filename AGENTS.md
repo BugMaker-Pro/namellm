@@ -435,6 +435,9 @@ Prompt-level validation details:
   baseline.
 - Track every public submission in `validation/lb_calibration.csv`; use
   matched sparse2-to-LB deltas rather than claiming absolute OOF equals LB.
+- `scripts/evaluate_qwen14_sparse2.py` applies the same two-row gate to
+  fold-0 stage2 probabilities and returns explicit new-reader/fallback
+  decisions.
 
 ## Browser Notes
 
