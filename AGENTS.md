@@ -410,9 +410,9 @@ Prompt-level validation details:
 - Public Gemini frozen DeBERTa features were audited and rejected: their
   benchmark champion logits reached only about 0.27 within-Gemini balanced
   accuracy.
-- Qwen3-14B QLoRA is still training on Colab. At the latest probe it had
-  reached stage1 step 500, with checkpoints through that step on the remote
-  runtime.
+- Qwen3-14B QLoRA stage1 completed 800 steps on Colab and stage2 is active.
+  Remote stage2 checkpoints exist through step 100; epoch-1 probabilities
+  have not been written yet.
 
 ### Test-Like Validation Standard
 

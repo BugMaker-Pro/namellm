@@ -248,9 +248,10 @@ python -u scripts/train_external_qwen14.py \
 
 ## Remote Access Status
 
-The resumable Qwen14 process is active. At the latest probe it had resumed
-from step 300, reached stage1 step 500, used 11.7 GB of the T4, and continued
-at 100% GPU utilization. Remote checkpoints now exist through step 500.
+The resumable Qwen14 process is active. Stage1 completed 800 steps and stage2
+is running. Remote stage2 checkpoints exist through step 100, the T4 remains
+fully utilized, and epoch-1 validation probabilities have not been written
+yet.
 
 To take over the running session after re-authentication:
 
