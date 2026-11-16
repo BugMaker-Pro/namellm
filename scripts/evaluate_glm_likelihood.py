@@ -394,21 +394,26 @@ def nested_pairwise_oof(
     outer_splits: int,
 ) -> tuple[np.ndarray, list[dict]]:
     glm_indices = sorted(glm_indices)
-    rows = np.flatnonzero(np.isin(y, glm_indices))
-    pair_x = x[rows]
-    pair_groups = groups[rows]
     positive = glm_indices[0]
-    pair_y = (y[rows] == positive).astype(np.int64)
+    pair_y = (y == positive).astype(np.int64)
     pair_probability = np.full(len(y), np.nan, dtype=np.float64)
     choices: list[dict] = []
     outer = list(
         GroupKFold(outer_splits).split(
-            pair_x,
-            pair_y,
-            pair_groups,
+            x,
+            y,
+            groups,
         )
     )
     for outer_index, (train_index, valid_index) in enumerate(outer):
+        train_pair = train_index[
+            np.isin(y[train_index], glm_indices)
+        ]
+        valid_pair = valid_index[
+            np.isin(y[valid_index], glm_indices)
+        ]
+        if not len(train_pair) or not len(valid_pair):
+            raise RuntimeError("Pairwise fold is missing GLM rows")
         scored = []
         for order, c_value in enumerate(c_values):
             actual = []
@@ -417,34 +422,40 @@ def nested_pairwise_oof(
                 split = inner_split(
                     train_index,
                     pair_y,
-                    pair_groups,
+                    groups,
                     20261116 + 100 * outer_index + seed,
                 )
                 if split is None:
                     continue
                 fit_index, valid_part = split
+                fit_pair = fit_index[
+                    np.isin(y[fit_index], glm_indices)
+                ]
+                score_pair = valid_part[
+                    np.isin(y[valid_part], glm_indices)
+                ]
                 scaler, model = fit_classifier(
-                    pair_x,
+                    x,
                     pair_y,
-                    fit_index,
+                    fit_pair,
                     c_value,
                 )
                 local = model.predict_proba(
-                    scaler.transform(pair_x[valid_part])
+                    scaler.transform(x[score_pair])
                 )[:, 1]
-                actual.extend(pair_y[valid_part].tolist())
+                actual.extend(pair_y[score_pair].tolist())
                 predicted.extend((local >= 0.5).astype(int).tolist())
             score = balanced_accuracy_score(actual, predicted)
             scored.append((score, -order, c_value))
         selected_c = max(scored)[2]
         scaler, model = fit_classifier(
-            pair_x,
+            x,
             pair_y,
-            train_index,
+            train_pair,
             selected_c,
         )
-        pair_probability[rows[valid_index]] = model.predict_proba(
-            scaler.transform(pair_x[valid_index])
+        pair_probability[valid_index] = model.predict_proba(
+            scaler.transform(x[valid_index])
         )[:, 1]
         choices.append(
             {

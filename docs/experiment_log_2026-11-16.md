@@ -132,6 +132,37 @@ python scripts/evaluate_glm_likelihood.py `
   notebook and appends one post-V1 cell. A failure in that cell keeps the
   existing V1 submission.
 
+## Test-Like Sparse2 Validation
+
+- The previous sparse validation sampled rows after complete 18-row OOF
+  predictions had already been generated. That is not a valid hidden-test
+  proxy when a branch uses prompt context.
+- The new protocol samples 2 rows per validation prompt before any
+  prompt-dependent transform, uses 5 outer prompt-grouped folds, and repeats
+  50 seeds with 500 prompt bootstrap resamples.
+- Protocol: `validation/sparse2_protocol.json`.
+- Harness:
+  `scripts/run_sparse2_lockbox.py`.
+- The harness supports static OOF branches and callable candidates receiving
+  `(train_df, valid_df, seed, fold)`.
+- A pairwise GLM bug was found during implementation: the pair model was
+  trained only on true-GLM rows, but its OOF matrix was filled only on those
+  rows. Deployment scores every row the first pass calls GLM. The corrected
+  OOF now trains the pair model on true-GLM rows and predicts every
+  outer-validation row.
+- Correct V1 full-18 OOF: 0.6394 -> 0.6668.
+- Test-like sparse2:
+  - local stack baseline: 0.6447 ± 0.0275
+  - V1 160-token GLM: 0.6710 ± 0.0284
+  - paired delta: **+0.0263**
+  - seed win rate: **50/50**
+  - prompt bootstrap delta 95% interval: **[+0.0229, +0.0294]**
+- Per-seed results are in
+  `validation/sparse2_v1_per_seed.csv`; summary is in
+  `validation/sparse2_v1_results.json`.
+- Real LB scores are recorded in `validation/lb_calibration.csv`. The V1 LB
+  row remains pending until the kernel finishes and is submitted.
+
 ## Public 0.701 And 160-Token GLM Refresh
 
 - Public kernel `alexchilton/name-that-llm-0-701-all-public-what-failed`

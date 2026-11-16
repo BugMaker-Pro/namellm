@@ -1,0 +1,26 @@
+{
+  "version": "sparse2-lockbox-v1",
+  "outer_folds": 5,
+  "seeds": 50,
+  "seed_start": 20261116,
+  "responses_per_prompt": 2,
+  "bootstrap_replicates": 500,
+  "split": "GroupKFold groups=prompt_id",
+  "sampling_order": "sample validation rows before any prompt-dependent transform",
+  "primary_metric": "balanced_accuracy",
+  "report": [
+    "mean",
+    "std",
+    "p05",
+    "paired_delta",
+    "win_rate",
+    "prompt_bootstrap_delta"
+  ],
+  "acceptance": {
+    "small_increment_delta": 0.002,
+    "new_reader_delta": 0.004,
+    "fallback_reader_delta": 0.003,
+    "minimum_win_rate": 0.8,
+    "bootstrap_ci_lower_must_exceed_zero": true
+  }
+}

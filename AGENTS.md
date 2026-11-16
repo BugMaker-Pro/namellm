@@ -414,6 +414,25 @@ Prompt-level validation details:
   reached stage1 step 500, with checkpoints through that step on the remote
   runtime.
 
+### Test-Like Validation Standard
+
+- Use `validation/sparse2_protocol.json` and
+  `scripts/run_sparse2_lockbox.py` for candidate screening.
+- Protocol: 5 prompt-grouped outer folds, 50 seeds, 2 sampled rows per
+  validation prompt before any prompt-dependent transform, and 500
+  prompt-bootstrap replicates.
+- Static probability branches are valid only when their features are
+  prompt-independent. Prompt-dependent candidates must expose a callable
+  receiving `(train_df, valid_df, seed, fold)`.
+- Do not use posthoc sampling of complete 18-row OOF as hidden-test evidence.
+- Correct pairwise GLM OOF must train on true-GLM rows but predict every
+  outer-validation row.
+- V1 160-token GLM sparse2 result: **0.6710**, versus 0.6447 for the local
+  stack proxy, paired delta **+0.0263**, 50/50 seeds, bootstrap interval
+  **[+0.0229, +0.0294]**.
+- Track every public submission in `validation/lb_calibration.csv`; use
+  matched sparse2-to-LB deltas rather than claiming absolute OOF equals LB.
+
 ## Browser Notes
 
 - Launch Edge directly, for example:
