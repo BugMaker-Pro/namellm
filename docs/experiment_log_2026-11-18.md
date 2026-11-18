@@ -367,3 +367,33 @@ Both six-epoch Qwen14 kernels completed:
 The six-epoch training budget improves the ordinary fold metric, but neither
 run reaches the 0.60 standalone sparse2 reader gate. Do not scale this exact
 Qwen14 configuration or replace the 0.702 submission with it.
+
+### Incremental Gate Recheck
+
+The 0.60 standalone threshold is appropriate for a new independent reader,
+but too strict for a post-processing specialist that only reallocates mass
+inside a family. The operative gate should be the incremental effect on the
+actual parent:
+
+- `sparse2` paired delta >= +0.004
+- seed win rate >= 0.75
+- positive direction in at least 3/5 prompt folds
+- bootstrap lower bound near or above zero
+- no material degradation of the parent fallback
+
+Incremental checks against the family-specialist parent:
+
+- GLM TF-IDF specialist: full-stack OOF 0.6394 -> 0.6401, reject.
+- Six top pair-specific specialists: added only +0.0022 on two-row sparse2
+  with 55% seed wins, reject.
+- Family-specific weight and margin gates: nested selection fell below fixed
+  weight 0.25, reject.
+- Dense sentence/style family specialist: full OOF +0.0019 and sparse2
+  +0.0019 with 57%-59% wins, reject.
+- Qwen14 `lr4e5` after family specialists: +0.0163 in the sampled
+  diagnostic, but only 62% seed wins; `lr8e5` was weaker. Keep out of the
+  current kernel.
+
+The fixed Open Pool family specialists at weight 0.25 remain the best
+validated post-processing layer. The next expensive test should be a
+family-specific fine-tuned encoder, not more TF-IDF rerankers.
