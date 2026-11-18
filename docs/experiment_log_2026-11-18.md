@@ -397,3 +397,28 @@ Incremental checks against the family-specialist parent:
 The fixed Open Pool family specialists at weight 0.25 remain the best
 validated post-processing layer. The next expensive test should be a
 family-specific fine-tuned encoder, not more TF-IDF rerankers.
+
+## Gemini Pair Encoder
+
+A ModernBERT-base binary encoder was trained on the filtered Open Pool for
+`gemini-3.7-flash` versus `gemini-3.8-flash`. External prompt groups were
+split 90/10; official train was never used for fitting or checkpoint
+selection.
+
+Training history:
+
+| Epoch | External valid BA | Official pair BA |
+| ---: | ---: | ---: |
+| 1 | 0.617 | 0.547 |
+| 2 | **0.649** | **0.577** |
+| 3 | 0.643 | 0.560 |
+| 4 | 0.607 | 0.550 |
+
+The best external-validation checkpoint was epoch 2, but it did not transfer:
+the official pair score was only 0.577. Applying the encoder inside the
+Gemini family did not improve the family stack; on the weaker fusion parent
+the best small-weight gain was about +0.002, with no stable sparse2 support.
+
+Decision: reject this external-only encoder. A future encoder experiment must
+train with official prompt-grouped folds and use the official held-out
+prompts in the objective, rather than selecting on an external-only split.
