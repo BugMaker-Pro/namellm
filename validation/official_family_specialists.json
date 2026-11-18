@@ -1,0 +1,273 @@
+{
+  "base_score": 0.6394108873974647,
+  "family_base": {
+    "claude": 0.7085458612975392,
+    "gpt": 0.6266666666666667,
+    "gemini": 0.6866666666666668
+  },
+  "weights": {
+    "0.05": {
+      "overall": 0.6527591349739001,
+      "family": {
+        "claude": 0.7299328859060402,
+        "gpt": 0.6533333333333332,
+        "gemini": 0.6866666666666666
+      }
+    },
+    "0.1": {
+      "overall": 0.6635023614218245,
+      "family": {
+        "claude": 0.7459418344519015,
+        "gpt": 0.6639999999999999,
+        "gemini": 0.7016666666666667
+      }
+    },
+    "0.15": {
+      "overall": 0.6712975391498882,
+      "family": {
+        "claude": 0.7620044742729306,
+        "gpt": 0.6733333333333332,
+        "gemini": 0.705
+      }
+    },
+    "0.2": {
+      "overall": 0.6742629878200348,
+      "family": {
+        "claude": 0.7633467561521252,
+        "gpt": 0.6826666666666666,
+        "gemini": 0.7050000000000001
+      }
+    },
+    "0.25": {
+      "overall": 0.6764976385781756,
+      "family": {
+        "claude": 0.7767248322147651,
+        "gpt": 0.6786666666666666,
+        "gemini": 0.7033333333333334
+      }
+    },
+    "0.35": {
+      "overall": 0.6798409147402436,
+      "family": {
+        "claude": 0.7900939597315435,
+        "gpt": 0.6759999999999999,
+        "gemini": 0.7050000000000001
+      }
+    },
+    "0.5": {
+      "overall": 0.6746631866766095,
+      "family": {
+        "claude": 0.7914541387024607,
+        "gpt": 0.6679999999999999,
+        "gemini": 0.6900000000000001
+      }
+    }
+  },
+  "fold_metrics": [
+    {
+      "fold": 0,
+      "family": "claude",
+      "external_rows": 42303,
+      "official_rows": 599,
+      "validation_rows": 150,
+      "feature_shape": [
+        42902,
+        493678
+      ]
+    },
+    {
+      "fold": 0,
+      "family": "gpt",
+      "external_rows": 38203,
+      "official_rows": 600,
+      "validation_rows": 150,
+      "feature_shape": [
+        38803,
+        481162
+      ]
+    },
+    {
+      "fold": 0,
+      "family": "gemini",
+      "external_rows": 35372,
+      "official_rows": 480,
+      "validation_rows": 120,
+      "feature_shape": [
+        35852,
+        438206
+      ]
+    },
+    {
+      "fold": 1,
+      "family": "claude",
+      "external_rows": 42303,
+      "official_rows": 599,
+      "validation_rows": 150,
+      "feature_shape": [
+        42902,
+        493704
+      ]
+    },
+    {
+      "fold": 1,
+      "family": "gpt",
+      "external_rows": 38203,
+      "official_rows": 600,
+      "validation_rows": 150,
+      "feature_shape": [
+        38803,
+        481169
+      ]
+    },
+    {
+      "fold": 1,
+      "family": "gemini",
+      "external_rows": 35372,
+      "official_rows": 480,
+      "validation_rows": 120,
+      "feature_shape": [
+        35852,
+        438232
+      ]
+    },
+    {
+      "fold": 2,
+      "family": "claude",
+      "external_rows": 42303,
+      "official_rows": 599,
+      "validation_rows": 150,
+      "feature_shape": [
+        42902,
+        493677
+      ]
+    },
+    {
+      "fold": 2,
+      "family": "gpt",
+      "external_rows": 38203,
+      "official_rows": 600,
+      "validation_rows": 150,
+      "feature_shape": [
+        38803,
+        481137
+      ]
+    },
+    {
+      "fold": 2,
+      "family": "gemini",
+      "external_rows": 35372,
+      "official_rows": 480,
+      "validation_rows": 120,
+      "feature_shape": [
+        35852,
+        438213
+      ]
+    },
+    {
+      "fold": 3,
+      "family": "claude",
+      "external_rows": 42303,
+      "official_rows": 599,
+      "validation_rows": 150,
+      "feature_shape": [
+        42902,
+        493632
+      ]
+    },
+    {
+      "fold": 3,
+      "family": "gpt",
+      "external_rows": 38203,
+      "official_rows": 600,
+      "validation_rows": 150,
+      "feature_shape": [
+        38803,
+        481135
+      ]
+    },
+    {
+      "fold": 3,
+      "family": "gemini",
+      "external_rows": 35372,
+      "official_rows": 480,
+      "validation_rows": 120,
+      "feature_shape": [
+        35852,
+        438204
+      ]
+    },
+    {
+      "fold": 4,
+      "family": "claude",
+      "external_rows": 42303,
+      "official_rows": 600,
+      "validation_rows": 149,
+      "feature_shape": [
+        42903,
+        493679
+      ]
+    },
+    {
+      "fold": 4,
+      "family": "gpt",
+      "external_rows": 38203,
+      "official_rows": 600,
+      "validation_rows": 150,
+      "feature_shape": [
+        38803,
+        481196
+      ]
+    },
+    {
+      "fold": 4,
+      "family": "gemini",
+      "external_rows": 35372,
+      "official_rows": 480,
+      "validation_rows": 120,
+      "feature_shape": [
+        35852,
+        438169
+      ]
+    }
+  ],
+  "specialist": {
+    "claude": {
+      "classes": [
+        "claude-fable-5",
+        "claude-opus-4-6",
+        "claude-opus-4-8",
+        "claude-opus-5",
+        "claude-sonnet-5"
+      ],
+      "feature_shape": [
+        42903,
+        493679
+      ]
+    },
+    "gpt": {
+      "classes": [
+        "gpt-5.5",
+        "gpt-5.6-luna",
+        "gpt-5.6-sol",
+        "gpt-5.6-terra",
+        "gpt-6-astra"
+      ],
+      "feature_shape": [
+        38803,
+        481196
+      ]
+    },
+    "gemini": {
+      "classes": [
+        "gemini-3.1-pro-preview",
+        "gemini-3.6-flash",
+        "gemini-3.7-flash",
+        "gemini-3.8-flash"
+      ],
+      "feature_shape": [
+        35852,
+        438169
+      ]
+    }
+  }
+}

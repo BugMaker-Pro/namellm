@@ -1,0 +1,65 @@
+{
+  "metric": "balanced_accuracy",
+  "seeds": 100,
+  "seed_start": 20261116,
+  "sample_sizes": [
+    2
+  ],
+  "modes": [
+    "raw"
+  ],
+  "coverage": {
+    "2": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    }
+  },
+  "branches": {
+    "2": {
+      "base": {
+        "raw": {
+          "mean": 0.6422349138338075,
+          "std": 0.02635239141310733,
+          "min": 0.5828924083503546,
+          "max": 0.7040899036156922,
+          "mean_class_recall": 0.6422349138338075,
+          "delta_vs_raw": {
+            "mean": 0.0,
+            "std": 0.0,
+            "win_rate": 0.0
+          }
+        }
+      },
+      "external_family": {
+        "raw": {
+          "mean": 0.6622461572488954,
+          "std": 0.022116740770297825,
+          "min": 0.6087882817694479,
+          "max": 0.7107686130518949,
+          "mean_class_recall": 0.6622461572488952,
+          "delta_vs_raw": {
+            "mean": 0.0,
+            "std": 0.0,
+            "win_rate": 0.0
+          }
+        }
+      },
+      "official_family": {
+        "raw": {
+          "mean": 0.6811348121323768,
+          "std": 0.02355899070255245,
+          "min": 0.6211884270127304,
+          "max": 0.7342519537565977,
+          "mean_class_recall": 0.6811348121323768,
+          "delta_vs_raw": {
+            "mean": 0.0,
+            "std": 0.0,
+            "win_rate": 0.0
+          }
+        }
+      }
+    }
+  }
+}

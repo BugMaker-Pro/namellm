@@ -63,6 +63,7 @@ def main():
     args = parser.parse_args()
     started = time.time()
     train = pd.read_csv(args.train_csv)
+    train["text"] = train.text.fillna("").astype(str).map(normalize_text)
     test = pd.read_csv(args.test_csv, dtype={"id": str})
     labels = sorted(train.model.unique())
     train_text = train.text.fillna("").astype(str).map(normalize_text)
@@ -109,6 +110,8 @@ def main():
             if label.startswith(lab + "-")
         ]
         local = pool[pool.model.isin(siblings)].copy()
+        official = train[train.model.isin(siblings)][["text", "model"]]
+        local = pd.concat([local, official], ignore_index=True)
         if local.empty:
             raise RuntimeError(f"No specialist rows for {lab}")
         char = TfidfVectorizer(
@@ -183,7 +186,7 @@ if FAST_COMMIT:
     _spec_cmd.append("--smoke")
 subprocess.run(_spec_cmd, check=True)
 
-SPEC_W = 0.20
+SPEC_W = 0.35
 SPEC_REF = {
     "gemini": 0.9243,
     "gpt": 0.9058,

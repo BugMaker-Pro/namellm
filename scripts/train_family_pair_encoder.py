@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import math
+import random
 import re
 import sys
 import time
@@ -23,6 +24,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from namellm.constants import LABELS, TRAIN_CSV  # noqa: E402
+
+
+def seed_everything(seed: int) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 def normalize_text(value: object) -> str:
@@ -194,9 +205,16 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=20261118)
     parser.add_argument("--checkpoint-every", type=int, default=100)
     parser.add_argument("--max-updates", type=int, default=0)
+    parser.add_argument(
+        "--fold",
+        type=int,
+        default=-1,
+        help="Train with official rows from the other folds; test this fold.",
+    )
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--local-files-only", action="store_true")
     args = parser.parse_args()
+    seed_everything(args.seed)
 
     labels = [value.strip() for value in args.labels.split(",") if value.strip()]
     if len(labels) != 2 or any(label not in LABELS for label in labels):
@@ -228,12 +246,36 @@ def main() -> None:
     valid_targets = validation["target"].to_numpy(dtype=np.int64)
     official = train[train["model"].isin(labels)].copy()
     official["target"] = official["model"].map(label_to_local)
-    official_texts = official["text"].tolist()
-    official_targets = official["target"].to_numpy(dtype=np.int64)
+    if args.fold >= 0:
+        official_folds = list(
+            GroupKFold(5).split(
+                official,
+                official["target"],
+                official["prompt_id"],
+            )
+        )
+        if args.fold >= len(official_folds):
+            raise ValueError(f"Fold {args.fold} is out of range")
+        official_train_index, official_test_index = official_folds[args.fold]
+        official_train = official.iloc[official_train_index]
+        official_test = official.iloc[official_test_index]
+        train_texts = train_texts + official_train["text"].tolist()
+        train_targets = np.concatenate(
+            [
+                train_targets,
+                official_train["target"].to_numpy(dtype=np.int64),
+            ]
+        )
+    else:
+        official_train = official.iloc[[]]
+        official_test = official
+    official_texts = official_test["text"].tolist()
+    official_targets = official_test["target"].to_numpy(dtype=np.int64)
     print(
         f"external_train={len(train_texts)} external_valid={len(valid_texts)} "
-        f"official_test={len(official_texts)} "
-        f"official_counts={official['model'].value_counts().to_dict()}",
+        f"official_train={len(official_train)} "
+        f"official_test={len(official_texts)} fold={args.fold} "
+        f"official_counts={official_test['model'].value_counts().to_dict()}",
         flush=True,
     )
 
@@ -251,6 +293,7 @@ def main() -> None:
         batch_size=args.batch_size,
         shuffle=True,
         collate_fn=collator,
+        generator=torch.Generator().manual_seed(args.seed),
     )
     valid_loader = DataLoader(
         TextDataset(valid_texts, valid_targets),
@@ -364,32 +407,40 @@ def main() -> None:
             official_prob.argmax(axis=1),
         )
     )
-    fold_scores = []
-    group_folds = list(
-        GroupKFold(5).split(
-            official,
-            official_targets,
-            official["prompt_id"],
-        )
-    )
-    for fold, (_, valid_index) in enumerate(group_folds):
-        fold_scores.append(
+    if args.fold >= 0:
+        fold_scores = [
             {
-                "fold": fold,
-                "balanced_accuracy": float(
-                    balanced_accuracy_score(
-                        official_targets[valid_index],
-                        official_prob[valid_index].argmax(axis=1),
-                    )
-                ),
+                "fold": args.fold,
+                "balanced_accuracy": official_score,
             }
+        ]
+    else:
+        fold_scores = []
+        group_folds = list(
+            GroupKFold(5).split(
+                official,
+                official["target"],
+                official["prompt_id"],
+            )
         )
+        for fold, (_, valid_index) in enumerate(group_folds):
+            fold_scores.append(
+                {
+                    "fold": fold,
+                    "balanced_accuracy": float(
+                        balanced_accuracy_score(
+                            official_targets[valid_index],
+                            official_prob[valid_index].argmax(axis=1),
+                        )
+                    ),
+                }
+            )
     full_official = np.zeros((len(train), len(LABELS)), dtype=np.float32)
     for local_index, label in enumerate(labels):
-        full_official[official.index, LABELS.index(label)] = official_prob[
-            :,
-            local_index,
-        ]
+        full_official[
+            official_test.index,
+            LABELS.index(label),
+        ] = official_prob[:, local_index]
     np.save(output_dir / "official_pair_probs.npy", official_prob)
     np.save(output_dir / "official_pair_targets.npy", official_y)
     np.save(output_dir / "full_official_probs.npy", full_official)
@@ -404,6 +455,7 @@ def main() -> None:
     )
     result = {
         "labels": labels,
+        "fold": args.fold,
         "best_epoch": best_epoch,
         "external_valid_balanced_accuracy": float(valid_score),
         "official_pair_balanced_accuracy": official_score,

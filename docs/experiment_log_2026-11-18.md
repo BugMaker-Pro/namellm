@@ -422,3 +422,42 @@ the best small-weight gain was about +0.002, with no stable sparse2 support.
 Decision: reject this external-only encoder. A future encoder experiment must
 train with official prompt-grouped folds and use the official held-out
 prompts in the objective, rather than selecting on an external-only split.
+
+## Official + External Family Specialists
+
+The strongest new result comes from adding official same-family rows to each
+TF-IDF specialist, while keeping prompt-grouped folds strict. For every outer
+fold, the specialist is fit on:
+
+- the filtered Open Pool rows for that family, excluding exact official text;
+- official rows from the same family in the other four folds.
+
+The held-out prompt fold is never used for fitting. This closes the
+external-to-official distribution gap without prompt leakage.
+
+Full prompt-grouped OOF on `qwen3_embedding_stack_blend_oof`:
+
+| Weight | Overall OOF | Claude | GPT | Gemini |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 0.6394 | 0.7085 | 0.6267 | 0.6867 |
+| 0.20 | 0.6743 | 0.7633 | 0.6827 | 0.7050 |
+| 0.35 | **0.6798** | **0.7901** | 0.6760 | 0.7050 |
+| 0.50 | 0.6747 | 0.7915 | 0.6680 | 0.6900 |
+
+Prompt-sparse two-row validation:
+
+| Branch | Mean BA |
+| --- | ---: |
+| Base stack | 0.6422 |
+| External-only family specialists | 0.6622 |
+| Official + external family specialists | **0.6811** |
+
+The direct official-vs-external paired delta is **+0.0189**, with **96/100
+seed wins**. The direct official-vs-base delta is **+0.0389**, with 97/100
+seed wins. This is the first new branch in this session to clear the
+incremental gate by a wide margin.
+
+Private kernel `yyyyhhhhwww/name-that-llm-0702-pool-siblings` version 3 adds
+official same-family rows to the runtime specialist and uses weight 0.35.
+The smoke path passed with 1,400 Gemini, 1,750 GPT and 1,749 Claude training
+rows.
