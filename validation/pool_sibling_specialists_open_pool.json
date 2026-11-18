@@ -1,0 +1,2607 @@
+{
+  "pool": "artifacts\\open_pool_filtered\\ntl_open_pool_filtered.parquet",
+  "pool_rows": 143138,
+  "max_per_model": 12000,
+  "weights": [
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.35,
+    0.5
+  ],
+  "reports": {
+    "features\\qwen3_embedding_fusion7_oof.npy": {
+      "base": 0.5545488441461597,
+      "folds": [
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.5666666666666667
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6133333333333333
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.5999999999999999
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.5733333333333333
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.6629885057471265
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6066666666666667
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6333333333333333
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.64
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6066666666666667
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.6963218390804599
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6133333333333333
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6466666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.64
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7032183908045978
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.62
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6466666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.6733333333333333
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7167816091954023
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6466666666666667
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6533333333333334
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.6933333333333334
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6733333333333332
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7367816091954023
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.7133333333333335
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6799999999999999
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7705747126436782
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.76
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6933333333333334
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7636781609195402
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.6133333333333333,
+          "family_candidate": 0.7133333333333333
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.5999999999999999,
+          "family_candidate": 0.7666666666666667
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.6629885057471265,
+          "family_candidate": 0.7505747126436781
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.52,
+          "family_candidate": 0.52
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5333333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.5733333333333333
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.54,
+          "family_candidate": 0.54
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.5266666666666666
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.52,
+          "family_candidate": 0.52
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5533333333333333
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6066666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.54,
+          "family_candidate": 0.5399999999999999
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.5866666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.52,
+          "family_candidate": 0.5333333333333333
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5599999999999999
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.54,
+          "family_candidate": 0.5466666666666666
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.5866666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.52,
+          "family_candidate": 0.5599999999999999
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5733333333333333
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6066666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.54,
+          "family_candidate": 0.5599999999999999
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.52,
+          "family_candidate": 0.5999999999999999
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5933333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6199999999999999
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.54,
+          "family_candidate": 0.5866666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.6199999999999999
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.52,
+          "family_candidate": 0.5999999999999999
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.5933333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.6266666666666666
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.54,
+          "family_candidate": 0.5933333333333334
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.6466666666666666
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.52,
+          "family_candidate": 0.6266666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.6133333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.64
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.54,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.52,
+          "family_candidate": 0.6066666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.5333333333333334,
+          "family_candidate": 0.6199999999999999
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.5733333333333333,
+          "family_candidate": 0.62
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.54,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.5266666666666666,
+          "family_candidate": 0.6733333333333333
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.5666666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.55,
+          "family_candidate": 0.55
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.65,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.6166666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.5583333333333333
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.5916666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.55,
+          "family_candidate": 0.575
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.65,
+          "family_candidate": 0.6333333333333333
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.6000000000000001
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.6083333333333334
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.625
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.55,
+          "family_candidate": 0.5916666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.65,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.6083333333333334
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.625
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.55,
+          "family_candidate": 0.5833333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.65,
+          "family_candidate": 0.6333333333333333
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.625
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.6666666666666666
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.55,
+          "family_candidate": 0.6000000000000001
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.65,
+          "family_candidate": 0.6166666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.6583333333333333
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.6916666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.55,
+          "family_candidate": 0.6083333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.65,
+          "family_candidate": 0.625
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.55,
+          "family_candidate": 0.6166666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.65,
+          "family_candidate": 0.6250000000000001
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.5666666666666667,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.55,
+          "family_candidate": 0.5833333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.65,
+          "family_candidate": 0.6416666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.6166666666666667,
+          "family_candidate": 0.6833333333333333
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.5583333333333333,
+          "family_candidate": 0.6666666666666667
+        }
+      ],
+      "weights": {
+        "0.0": {
+          "claude": {
+            "family": 0.6030425055928411,
+            "overall": 0.5545488441461597
+          },
+          "gpt": {
+            "family": 0.5386666666666666,
+            "overall": 0.5545488441461597
+          },
+          "gemini": {
+            "family": 0.5883333333333334,
+            "overall": 0.5545488441461597
+          }
+        },
+        "0.05": {
+          "claude": {
+            "family": 0.6364474272930649,
+            "overall": 0.560494655729555
+          },
+          "gpt": {
+            "family": 0.5613333333333334,
+            "overall": 0.5608451404424559
+          },
+          "gemini": {
+            "family": 0.6016666666666667,
+            "overall": 0.5567710663683819
+          }
+        },
+        "0.1": {
+          "claude": {
+            "family": 0.6525011185682328,
+            "overall": 0.561250310713398
+          },
+          "gpt": {
+            "family": 0.5653333333333334,
+            "overall": 0.5597340293313448
+          },
+          "gemini": {
+            "family": 0.62,
+            "overall": 0.5593636589609745
+          }
+        },
+        "0.15": {
+          "claude": {
+            "family": 0.6632035794183445,
+            "overall": 0.5612602535421328
+          },
+          "gpt": {
+            "family": 0.58,
+            "overall": 0.5623266219239373
+          },
+          "gemini": {
+            "family": 0.6316666666666667,
+            "overall": 0.561956251553567
+          }
+        },
+        "0.2": {
+          "claude": {
+            "family": 0.6805727069351231,
+            "overall": 0.5616405667412379
+          },
+          "gpt": {
+            "family": 0.604,
+            "overall": 0.5671389510315685
+          },
+          "gemini": {
+            "family": 0.6416666666666667,
+            "overall": 0.5638081034054189
+          }
+        },
+        "0.25": {
+          "claude": {
+            "family": 0.6979686800894855,
+            "overall": 0.5631394481730053
+          },
+          "gpt": {
+            "family": 0.612,
+            "overall": 0.5682475764354958
+          },
+          "gemini": {
+            "family": 0.645,
+            "overall": 0.5645488441461596
+          }
+        },
+        "0.35": {
+          "claude": {
+            "family": 0.7153557046979866,
+            "overall": 0.5650062142679594
+          },
+          "gpt": {
+            "family": 0.628,
+            "overall": 0.5678772060651256
+          },
+          "gemini": {
+            "family": 0.6566666666666667,
+            "overall": 0.5652895848869003
+          }
+        },
+        "0.5": {
+          "claude": {
+            "family": 0.719400447427293,
+            "overall": 0.5613149391001739
+          },
+          "gpt": {
+            "family": 0.624,
+            "overall": 0.5589833457618694
+          },
+          "gemini": {
+            "family": 0.6499999999999999,
+            "overall": 0.5608426547352722
+          }
+        }
+      },
+      "claude": {
+        "labels": [
+          "claude-fable-5",
+          "claude-opus-4-6",
+          "claude-opus-4-8",
+          "claude-opus-5",
+          "claude-sonnet-5"
+        ],
+        "base": 0.6030425055928411,
+        "base_rows": 749,
+        "standalone_accuracy": 0.6728971962616822,
+        "standalone_classes": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.6030425055928411,
+            "0.05": 0.6364474272930649,
+            "0.1": 0.6525011185682328,
+            "0.15": 0.6632035794183445,
+            "0.2": 0.6805727069351231,
+            "0.25": 0.6979686800894855,
+            "0.35": 0.7153557046979866,
+            "0.5": 0.719400447427293
+          },
+          "folds": {}
+        }
+      },
+      "gpt": {
+        "labels": [
+          "gpt-5.5",
+          "gpt-5.6-luna",
+          "gpt-5.6-sol",
+          "gpt-5.6-terra",
+          "gpt-6-astra"
+        ],
+        "base": 0.5386666666666666,
+        "base_rows": 750,
+        "standalone_accuracy": 0.5333333333333333,
+        "standalone_classes": [
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.5386666666666666,
+            "0.05": 0.5613333333333334,
+            "0.1": 0.5653333333333334,
+            "0.15": 0.58,
+            "0.2": 0.604,
+            "0.25": 0.612,
+            "0.35": 0.628,
+            "0.5": 0.624
+          },
+          "folds": {}
+        }
+      },
+      "gemini": {
+        "labels": [
+          "gemini-3.1-pro-preview",
+          "gemini-3.6-flash",
+          "gemini-3.7-flash",
+          "gemini-3.8-flash"
+        ],
+        "base": 0.5883333333333334,
+        "base_rows": 600,
+        "standalone_accuracy": 0.5883333333333334,
+        "standalone_classes": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.5883333333333334,
+            "0.05": 0.6016666666666667,
+            "0.1": 0.62,
+            "0.15": 0.6316666666666667,
+            "0.2": 0.6416666666666667,
+            "0.25": 0.645,
+            "0.35": 0.6566666666666667,
+            "0.5": 0.6499999999999999
+          },
+          "folds": {}
+        }
+      },
+      "combined": {
+        "0.0": {
+          "overall": 0.5545488441461597,
+          "families": {
+            "claude": 0.6030425055928411,
+            "gpt": 0.5386666666666666,
+            "gemini": 0.5883333333333334
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5407407407407406
+            },
+            {
+              "fold": 1,
+              "score": 0.537037037037037
+            },
+            {
+              "fold": 2,
+              "score": 0.5814814814814815
+            },
+            {
+              "fold": 3,
+              "score": 0.5555555555555555
+            },
+            {
+              "fold": 4,
+              "score": 0.5582375478927203
+            }
+          ]
+        },
+        "0.05": {
+          "overall": 0.5682724335073329,
+          "families": {
+            "claude": 0.6337807606263982,
+            "gpt": 0.5586666666666666,
+            "gemini": 0.6016666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5537037037037037
+            },
+            {
+              "fold": 1,
+              "score": 0.5499999999999999
+            },
+            {
+              "fold": 2,
+              "score": 0.5962962962962962
+            },
+            {
+              "fold": 3,
+              "score": 0.5537037037037037
+            },
+            {
+              "fold": 4,
+              "score": 0.5878671775223498
+            }
+          ]
+        },
+        "0.1": {
+          "overall": 0.5716206810837683,
+          "families": {
+            "claude": 0.6485011185682328,
+            "gpt": 0.5626666666666666,
+            "gemini": 0.62
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5518518518518518
+            },
+            {
+              "fold": 1,
+              "score": 0.5574074074074074
+            },
+            {
+              "fold": 2,
+              "score": 0.6018518518518517
+            },
+            {
+              "fold": 3,
+              "score": 0.5629629629629629
+            },
+            {
+              "fold": 4,
+              "score": 0.5842273307790548
+            }
+          ]
+        },
+        "0.15": {
+          "overall": 0.5779269202087992,
+          "families": {
+            "claude": 0.6605369127516778,
+            "gpt": 0.5773333333333333,
+            "gemini": 0.6316666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5648148148148148
+            },
+            {
+              "fold": 1,
+              "score": 0.5592592592592592
+            },
+            {
+              "fold": 2,
+              "score": 0.5981481481481481
+            },
+            {
+              "fold": 3,
+              "score": 0.5722222222222222
+            },
+            {
+              "fold": 4,
+              "score": 0.5954022988505747
+            }
+          ]
+        },
+        "0.2": {
+          "overall": 0.5831145911011683,
+          "families": {
+            "claude": 0.6698791946308724,
+            "gpt": 0.5973333333333334,
+            "gemini": 0.6416666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.575925925925926
+            },
+            {
+              "fold": 1,
+              "score": 0.5648148148148149
+            },
+            {
+              "fold": 2,
+              "score": 0.5907407407407407
+            },
+            {
+              "fold": 3,
+              "score": 0.5851851851851851
+            },
+            {
+              "fold": 4,
+              "score": 0.598978288633461
+            }
+          ]
+        },
+        "0.25": {
+          "overall": 0.5860949540144172,
+          "families": {
+            "claude": 0.6859418344519016,
+            "gpt": 0.6053333333333333,
+            "gemini": 0.6433333333333333
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5814814814814814
+            },
+            {
+              "fold": 1,
+              "score": 0.5611111111111112
+            },
+            {
+              "fold": 2,
+              "score": 0.5962962962962963
+            },
+            {
+              "fold": 3,
+              "score": 0.5833333333333334
+            },
+            {
+              "fold": 4,
+              "score": 0.6083652618135376
+            }
+          ]
+        },
+        "0.35": {
+          "overall": 0.5890753169276661,
+          "families": {
+            "claude": 0.6980044742729307,
+            "gpt": 0.62,
+            "gemini": 0.6566666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5814814814814815
+            },
+            {
+              "fold": 1,
+              "score": 0.5740740740740741
+            },
+            {
+              "fold": 2,
+              "score": 0.6018518518518519
+            },
+            {
+              "fold": 3,
+              "score": 0.5796296296296296
+            },
+            {
+              "fold": 4,
+              "score": 0.6083652618135376
+            }
+          ]
+        },
+        "0.5": {
+          "overall": 0.5790877454635845,
+          "families": {
+            "claude": 0.7033825503355705,
+            "gpt": 0.6146666666666667,
+            "gemini": 0.6483333333333333
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.5740740740740741
+            },
+            {
+              "fold": 1,
+              "score": 0.562962962962963
+            },
+            {
+              "fold": 2,
+              "score": 0.5944444444444446
+            },
+            {
+              "fold": 3,
+              "score": 0.5685185185185185
+            },
+            {
+              "fold": 4,
+              "score": 0.5954022988505748
+            }
+          ]
+        }
+      }
+    },
+    "features\\qwen3_embedding_stack_blend_oof.npy": {
+      "base": 0.6394108873974647,
+      "folds": [
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.6333333333333334
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7133333333333334
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.7,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.72,
+          "family_candidate": 0.72
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.0,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.7767816091954023
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.6599999999999999
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7266666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.7,
+          "family_candidate": 0.72
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.72,
+          "family_candidate": 0.74
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.05,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.7967816091954023
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.7066666666666667
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7466666666666668
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.7,
+          "family_candidate": 0.72
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.72,
+          "family_candidate": 0.76
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.1,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.7965517241379311
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.7266666666666668
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7466666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.7,
+          "family_candidate": 0.7466666666666667
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.72,
+          "family_candidate": 0.7866666666666666
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.15,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.8032183908045978
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.7333333333333334
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.76
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.7,
+          "family_candidate": 0.76
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.72,
+          "family_candidate": 0.7866666666666667
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.2,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.789655172413793
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.74
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7666666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.7,
+          "family_candidate": 0.7866666666666667
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.72,
+          "family_candidate": 0.8066666666666666
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.25,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.810344827586207
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.74
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7866666666666667
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.7,
+          "family_candidate": 0.8
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.72,
+          "family_candidate": 0.8066666666666666
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.35,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.8308045977011496
+        },
+        {
+          "fold": 0,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.6333333333333334,
+          "family_candidate": 0.7533333333333333
+        },
+        {
+          "fold": 1,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.7133333333333334,
+          "family_candidate": 0.7733333333333333
+        },
+        {
+          "fold": 2,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.7,
+          "family_candidate": 0.8066666666666666
+        },
+        {
+          "fold": 3,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.72,
+          "family_candidate": 0.8066666666666666
+        },
+        {
+          "fold": 4,
+          "family": "claude",
+          "weight": 0.5,
+          "base": 0.7767816091954023,
+          "family_candidate": 0.8308045977011493
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.6,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6133333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.6799999999999999
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.6,
+          "family_candidate": 0.6
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.0,
+          "base": 0.64,
+          "family_candidate": 0.64
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.6,
+          "family_candidate": 0.6133333333333333
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.62
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.7200000000000001
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.6,
+          "family_candidate": 0.64
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.05,
+          "base": 0.64,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.6,
+          "family_candidate": 0.6266666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6333333333333333
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.7133333333333333
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.1,
+          "base": 0.64,
+          "family_candidate": 0.6733333333333335
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.6,
+          "family_candidate": 0.6333333333333334
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6466666666666666
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.7133333333333335
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.15,
+          "base": 0.64,
+          "family_candidate": 0.6799999999999999
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666666
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6466666666666666
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.7200000000000001
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.6,
+          "family_candidate": 0.6733333333333333
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.2,
+          "base": 0.64,
+          "family_candidate": 0.6866666666666666
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.6,
+          "family_candidate": 0.6733333333333333
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6466666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.72
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.25,
+          "base": 0.64,
+          "family_candidate": 0.72
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666666
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.66
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.6799999999999999
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.35,
+          "base": 0.64,
+          "family_candidate": 0.7133333333333333
+        },
+        {
+          "fold": 0,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.6,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.6133333333333334,
+          "family_candidate": 0.6466666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.6799999999999999,
+          "family_candidate": 0.6799999999999999
+        },
+        {
+          "fold": 3,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.6,
+          "family_candidate": 0.6733333333333333
+        },
+        {
+          "fold": 4,
+          "family": "gpt",
+          "weight": 0.5,
+          "base": 0.64,
+          "family_candidate": 0.7066666666666668
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.675,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.7,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.7416666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6416666666666666
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.0,
+          "base": 0.675,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.675,
+          "family_candidate": 0.6583333333333333
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.7,
+          "family_candidate": 0.7166666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.725
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.625
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.05,
+          "base": 0.675,
+          "family_candidate": 0.6749999999999999
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.675,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.7,
+          "family_candidate": 0.6749999999999999
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.7416666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6499999999999999
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.1,
+          "base": 0.675,
+          "family_candidate": 0.7166666666666667
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.675,
+          "family_candidate": 0.7166666666666666
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.7,
+          "family_candidate": 0.6833333333333333
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.7333333333333334
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.15,
+          "base": 0.675,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.675,
+          "family_candidate": 0.7333333333333334
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.7,
+          "family_candidate": 0.6666666666666667
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.7250000000000001
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.2,
+          "base": 0.675,
+          "family_candidate": 0.7250000000000001
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.675,
+          "family_candidate": 0.7416666666666667
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.7,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.7166666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6916666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.25,
+          "base": 0.675,
+          "family_candidate": 0.7333333333333334
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.675,
+          "family_candidate": 0.7083333333333335
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.7,
+          "family_candidate": 0.65
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.6916666666666667
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6833333333333333
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.35,
+          "base": 0.675,
+          "family_candidate": 0.7
+        },
+        {
+          "fold": 0,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.675,
+          "family_candidate": 0.6833333333333333
+        },
+        {
+          "fold": 1,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.7,
+          "family_candidate": 0.6333333333333334
+        },
+        {
+          "fold": 2,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.7416666666666667,
+          "family_candidate": 0.675
+        },
+        {
+          "fold": 3,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.6416666666666666,
+          "family_candidate": 0.6916666666666667
+        },
+        {
+          "fold": 4,
+          "family": "gemini",
+          "weight": 0.5,
+          "base": 0.675,
+          "family_candidate": 0.675
+        }
+      ],
+      "weights": {
+        "0.0": {
+          "claude": {
+            "family": 0.7085458612975392,
+            "overall": 0.6394108873974647
+          },
+          "gpt": {
+            "family": 0.6266666666666667,
+            "overall": 0.6394108873974647
+          },
+          "gemini": {
+            "family": 0.6866666666666668,
+            "overall": 0.6394108873974647
+          }
+        },
+        "0.05": {
+          "claude": {
+            "family": 0.7285906040268456,
+            "overall": 0.6427566492667164
+          },
+          "gpt": {
+            "family": 0.6519999999999999,
+            "overall": 0.6453368133233905
+          },
+          "gemini": {
+            "family": 0.68,
+            "overall": 0.6375590355456128
+          }
+        },
+        "0.1": {
+          "claude": {
+            "family": 0.7459418344519015,
+            "overall": 0.6435023614218245
+          },
+          "gpt": {
+            "family": 0.6626666666666667,
+            "overall": 0.6464479244345016
+          },
+          "gemini": {
+            "family": 0.6966666666666667,
+            "overall": 0.6408923688789461
+          }
+        },
+        "0.15": {
+          "claude": {
+            "family": 0.7619955257270694,
+            "overall": 0.6461098682575194
+          },
+          "gpt": {
+            "family": 0.6679999999999999,
+            "overall": 0.6468182948048721
+          },
+          "gemini": {
+            "family": 0.7,
+            "overall": 0.6416331096196868
+          }
+        },
+        "0.2": {
+          "claude": {
+            "family": 0.7660134228187919,
+            "overall": 0.6450037285607756
+          },
+          "gpt": {
+            "family": 0.6786666666666668,
+            "overall": 0.6482997762863534
+          },
+          "gemini": {
+            "family": 0.7050000000000001,
+            "overall": 0.6416331096196868
+          }
+        },
+        "0.25": {
+          "claude": {
+            "family": 0.7820850111856823,
+            "overall": 0.6468754660700969
+          },
+          "gpt": {
+            "family": 0.6853333333333333,
+            "overall": 0.6486676609495401
+          },
+          "gemini": {
+            "family": 0.7066666666666667,
+            "overall": 0.6420034799900572
+          }
+        },
+        "0.35": {
+          "claude": {
+            "family": 0.7927695749440715,
+            "overall": 0.6468804374844643
+          },
+          "gpt": {
+            "family": 0.6773333333333333,
+            "overall": 0.6442232165050956
+          },
+          "gemini": {
+            "family": 0.6866666666666668,
+            "overall": 0.6375590355456127
+          }
+        },
+        "0.5": {
+          "claude": {
+            "family": 0.7941297539149887,
+            "overall": 0.6442953020134229
+          },
+          "gpt": {
+            "family": 0.6746666666666666,
+            "overall": 0.6427417350236141
+          },
+          "gemini": {
+            "family": 0.6716666666666666,
+            "overall": 0.6338578175490927
+          }
+        }
+      },
+      "claude": {
+        "labels": [
+          "claude-fable-5",
+          "claude-opus-4-6",
+          "claude-opus-4-8",
+          "claude-opus-5",
+          "claude-sonnet-5"
+        ],
+        "base": 0.7085458612975392,
+        "base_rows": 749,
+        "standalone_accuracy": 0.6728971962616822,
+        "standalone_classes": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.7085458612975392,
+            "0.05": 0.7285906040268456,
+            "0.1": 0.7459418344519015,
+            "0.15": 0.7619955257270694,
+            "0.2": 0.7660134228187919,
+            "0.25": 0.7820850111856823,
+            "0.35": 0.7927695749440715,
+            "0.5": 0.7941297539149887
+          },
+          "folds": {}
+        }
+      },
+      "gpt": {
+        "labels": [
+          "gpt-5.5",
+          "gpt-5.6-luna",
+          "gpt-5.6-sol",
+          "gpt-5.6-terra",
+          "gpt-6-astra"
+        ],
+        "base": 0.6266666666666667,
+        "base_rows": 750,
+        "standalone_accuracy": 0.5333333333333333,
+        "standalone_classes": [
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.6266666666666667,
+            "0.05": 0.6519999999999999,
+            "0.1": 0.6626666666666667,
+            "0.15": 0.6679999999999999,
+            "0.2": 0.6786666666666668,
+            "0.25": 0.6853333333333333,
+            "0.35": 0.6773333333333333,
+            "0.5": 0.6746666666666666
+          },
+          "folds": {}
+        }
+      },
+      "gemini": {
+        "labels": [
+          "gemini-3.1-pro-preview",
+          "gemini-3.6-flash",
+          "gemini-3.7-flash",
+          "gemini-3.8-flash"
+        ],
+        "base": 0.6866666666666668,
+        "base_rows": 600,
+        "standalone_accuracy": 0.5883333333333334,
+        "standalone_classes": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "families": {
+          "all": {
+            "0.0": 0.6866666666666668,
+            "0.05": 0.68,
+            "0.1": 0.6966666666666667,
+            "0.15": 0.7,
+            "0.2": 0.7050000000000001,
+            "0.25": 0.7066666666666667,
+            "0.35": 0.6866666666666668,
+            "0.5": 0.6716666666666666
+          },
+          "folds": {}
+        }
+      },
+      "combined": {
+        "0.0": {
+          "overall": 0.6394108873974647,
+          "families": {
+            "claude": 0.7085458612975392,
+            "gpt": 0.6266666666666667,
+            "gemini": 0.6866666666666668
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6055555555555556
+            },
+            {
+              "fold": 1,
+              "score": 0.6277777777777778
+            },
+            {
+              "fold": 2,
+              "score": 0.6685185185185186
+            },
+            {
+              "fold": 3,
+              "score": 0.6314814814814815
+            },
+            {
+              "fold": 4,
+              "score": 0.6639208173690931
+            }
+          ]
+        },
+        "0.05": {
+          "overall": 0.647201093711161,
+          "families": {
+            "claude": 0.7272572706935123,
+            "gpt": 0.6506666666666666,
+            "gemini": 0.68
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6092592592592594
+            },
+            {
+              "fold": 1,
+              "score": 0.6370370370370372
+            },
+            {
+              "fold": 2,
+              "score": 0.6777777777777778
+            },
+            {
+              "fold": 3,
+              "score": 0.6407407407407407
+            },
+            {
+              "fold": 4,
+              "score": 0.6713282247765007
+            }
+          ]
+        },
+        "0.1": {
+          "overall": 0.653872731792195,
+          "families": {
+            "claude": 0.7459418344519015,
+            "gpt": 0.6613333333333333,
+            "gemini": 0.6966666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.625925925925926
+            },
+            {
+              "fold": 1,
+              "score": 0.6314814814814814
+            },
+            {
+              "fold": 2,
+              "score": 0.6814814814814816
+            },
+            {
+              "fold": 3,
+              "score": 0.6518518518518518
+            },
+            {
+              "fold": 4,
+              "score": 0.6786717752234993
+            }
+          ]
+        },
+        "0.15": {
+          "overall": 0.6572209793686303,
+          "families": {
+            "claude": 0.7579955257270694,
+            "gpt": 0.668,
+            "gemini": 0.6983333333333333
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6314814814814815
+            },
+            {
+              "fold": 1,
+              "score": 0.6370370370370371
+            },
+            {
+              "fold": 2,
+              "score": 0.6851851851851851
+            },
+            {
+              "fold": 3,
+              "score": 0.6574074074074074
+            },
+            {
+              "fold": 4,
+              "score": 0.6749680715197957
+            }
+          ]
+        },
+        "0.2": {
+          "overall": 0.6590778026348496,
+          "families": {
+            "claude": 0.7646800894854586,
+            "gpt": 0.6759999999999999,
+            "gemini": 0.7016666666666667
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6425925925925926
+            },
+            {
+              "fold": 1,
+              "score": 0.6370370370370371
+            },
+            {
+              "fold": 2,
+              "score": 0.6833333333333332
+            },
+            {
+              "fold": 3,
+              "score": 0.6592592592592592
+            },
+            {
+              "fold": 4,
+              "score": 0.673052362707535
+            }
+          ]
+        },
+        "0.25": {
+          "overall": 0.6616877951777281,
+          "families": {
+            "claude": 0.7794093959731544,
+            "gpt": 0.6826666666666668,
+            "gemini": 0.7033333333333334
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6462962962962963
+            },
+            {
+              "fold": 1,
+              "score": 0.6314814814814814
+            },
+            {
+              "fold": 2,
+              "score": 0.6851851851851851
+            },
+            {
+              "fold": 3,
+              "score": 0.662962962962963
+            },
+            {
+              "fold": 4,
+              "score": 0.6824393358876117
+            }
+          ]
+        },
+        "0.35": {
+          "overall": 0.653174248073577,
+          "families": {
+            "claude": 0.7887606263982102,
+            "gpt": 0.6733333333333333,
+            "gemini": 0.6816666666666666
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6314814814814814
+            },
+            {
+              "fold": 1,
+              "score": 0.637037037037037
+            },
+            {
+              "fold": 2,
+              "score": 0.6666666666666666
+            },
+            {
+              "fold": 3,
+              "score": 0.6555555555555556
+            },
+            {
+              "fold": 4,
+              "score": 0.6751596424010217
+            }
+          ]
+        },
+        "0.5": {
+          "overall": 0.6454039274173503,
+          "families": {
+            "claude": 0.7901208053691275,
+            "gpt": 0.6719999999999999,
+            "gemini": 0.6649999999999999
+          },
+          "folds": [
+            {
+              "fold": 0,
+              "score": 0.6296296296296295
+            },
+            {
+              "fold": 1,
+              "score": 0.6222222222222222
+            },
+            {
+              "fold": 2,
+              "score": 0.6592592592592592
+            },
+            {
+              "fold": 3,
+              "score": 0.6537037037037038
+            },
+            {
+              "fold": 4,
+              "score": 0.6621966794380588
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,6 @@
 variant,parent,submission_ref,public_lb,sparse2_mean,sparse2_std,sparse2_p05,seed_win_rate,paired_delta_vs_parent,bootstrap_ci_low,bootstrap_ci_high,status,notes
 public_0696,,58397368,0.696,,,,,,,,reference,Verified public fallback baseline
 public_0701,public_0696,,0.701,,,,,,,,reference,Public 0.701 sibling residual plus typographic invariants
+public_0702_glm_pairwise,public_0701,58438557,0.702,,,,,,,,reference,Current public best and leaderboard rank 179; +0.001 over 0.701 is within noise and not an established gain
 s1_glm160,public_0701,,TBD,0.404743,0.022813,0.369443,0.980000,0.032995,0.029972,0.035926,pending_lb,Strict style baseline plus 160-token GLM; independent replication delta +0.031193 with 50/50 seeds
+pool_siblings_0702,public_0702_glm_pairwise,58491685,TBD,,,,,0.021200,,,pending_lb,Filtered Open Pool Claude GPT Gemini sibling specialists; 2-row sparse2 delta +0.0212 stack blend and +0.0318 fusion7
