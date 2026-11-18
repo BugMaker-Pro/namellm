@@ -480,3 +480,20 @@ Kernel version 4 embeds the scaler, coefficients and intercepts trained on
 all official rows. Its runtime stage preserves the base family mass and
 replaces only the within-family conditional distribution. The smoke path
 passed. Submission `58499056` is pending at the latest check.
+
+### Rejected Router And Meta Variants
+
+- A six-family external+official TF-IDF router reached only 0.610 and 0.597
+  on the first two folds, far below the base stack's 0.844 family accuracy.
+  Reject hard or replacement family routing.
+- Adding `fusion7` and cluster-balanced reader family logits to the meta
+  features raised full OOF from 0.6921 to 0.6973, but the direct sparse2
+  improvement was only +0.0051 with 63/100 paired seed wins. Keep these as
+  diagnostic features, not a deployed change.
+- Per-family C tuning, longer character/word ngrams, LinearSVC, multi-seed
+  averaging, and sentence/style dense meta features all failed to produce a
+  stable sparse2 gain.
+- A temperature perturbation of the base logits showed the meta stack is
+  stable near scale 0.75-1.0 but degrades when logits are stretched to 1.5x
+  or more. Any future integration should include runtime family-spread
+  calibration before the meta coefficients are applied.

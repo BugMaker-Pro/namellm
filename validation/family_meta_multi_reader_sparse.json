@@ -1,0 +1,51 @@
+{
+  "metric": "balanced_accuracy",
+  "seeds": 100,
+  "seed_start": 20261116,
+  "sample_sizes": [
+    2
+  ],
+  "modes": [
+    "raw"
+  ],
+  "coverage": {
+    "2": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    }
+  },
+  "branches": {
+    "2": {
+      "current": {
+        "raw": {
+          "mean": 0.6942814681274387,
+          "std": 0.02464619682939165,
+          "min": 0.6166271531854606,
+          "max": 0.754130885178413,
+          "mean_class_recall": 0.6942814681274388,
+          "delta_vs_raw": {
+            "mean": 0.0,
+            "std": 0.0,
+            "win_rate": 0.0
+          }
+        }
+      },
+      "multi_reader": {
+        "raw": {
+          "mean": 0.699375346803025,
+          "std": 0.023361530800956043,
+          "min": 0.6371934581299905,
+          "max": 0.7579363225067559,
+          "mean_class_recall": 0.699375346803025,
+          "delta_vs_raw": {
+            "mean": 0.0,
+            "std": 0.0,
+            "win_rate": 0.0
+          }
+        }
+      }
+    }
+  }
+}
