@@ -461,3 +461,22 @@ Private kernel `yyyyhhhhwww/name-that-llm-0702-pool-siblings` version 3 adds
 official same-family rows to the runtime specialist and uses weight 0.35.
 The smoke path passed with 1,400 Gemini, 1,750 GPT and 1,749 Claude training
 rows.
+
+### Family Meta Stack
+
+The fixed family weights were replaced in the offline evaluation by a
+family-specific LogisticRegression stack. For each family the features are:
+
+- the base model's within-family log probabilities;
+- the official+external specialist's within-family log probabilities.
+
+The meta model is trained on the other prompt folds and evaluated on the
+held-out prompt fold. With `C=0.3`, full OOF reaches **0.6921**, compared
+with 0.6798 for the fixed-weight family specialist. The two-row sparse2
+result is **0.6943**, versus 0.6811 for fixed weighting, with 80/100 paired
+seed wins.
+
+Kernel version 4 embeds the scaler, coefficients and intercepts trained on
+all official rows. Its runtime stage preserves the base family mass and
+replaces only the within-family conditional distribution. The smoke path
+passed. Submission `58499056` is pending at the latest check.

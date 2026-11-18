@@ -174,6 +174,7 @@ APPLY_SOURCE = r'''# Open Pool sibling specialists: preserve each lab's total ma
 from pathlib import Path
 from scipy.special import log_softmax as _lsm
 
+META_CONFIG = __META_CONFIG__
 SPEC_OUT = "/kaggle/temp/spec_scores.npz"
 _spec_cmd = [
     sys.executable,
@@ -186,14 +187,6 @@ if FAST_COMMIT:
     _spec_cmd.append("--smoke")
 subprocess.run(_spec_cmd, check=True)
 
-SPEC_W = 0.35
-SPEC_REF = {
-    "gemini": 0.9243,
-    "gpt": 0.9058,
-    "claude": 1.1947,
-}
-
-
 def spec_apply(logits_path, specialist_path):
     with np.load(logits_path, allow_pickle=False) as payload:
         arrays = {key: payload[key] for key in payload.files}
@@ -204,31 +197,55 @@ def spec_apply(logits_path, specialist_path):
             specialist["ids"].astype(str).tolist()
             == arrays["ids"].astype(str).tolist()
         )
-        for lab, reference in SPEC_REF.items():
-            siblings = specialist[lab + "_labels"].astype(str).tolist()
+        base_logp = _lsm(logits, axis=1)
+        for family, model in META_CONFIG["families"].items():
+            siblings = [str(value) for value in model["labels"]]
             columns = [labels.index(label) for label in siblings]
-            inside = np.isin(logits.argmax(axis=1), columns)
-            spread = (
-                logits[inside][:, columns].std(axis=1).mean()
-                if inside.sum() >= 20
-                else reference
+            specialist_labels = specialist[
+                family + "_labels"
+            ].astype(str).tolist()
+            specialist_columns = [
+                specialist_labels.index(label)
+                for label in siblings
+            ]
+            specialist_values = np.asarray(
+                specialist[family],
+                dtype=np.float64,
+            )[:, specialist_columns]
+            features = np.hstack(
+                [
+                    base_logp[:, columns],
+                    specialist_values,
+                ]
             )
-            weight = SPEC_W * float(
-                np.clip(spread / reference, 0.5, 2.5)
+            scaled = (
+                features - np.asarray(model["mean"], dtype=np.float64)
+            ) / np.asarray(model["scale"], dtype=np.float64)
+            local = scaled @ np.asarray(
+                model["coef"],
+                dtype=np.float64,
+            ).T + np.asarray(model["intercept"], dtype=np.float64)
+            local = np.exp(
+                local - local.max(axis=1, keepdims=True)
             )
+            local /= local.sum(axis=1, keepdims=True)
+            class_labels = [
+                labels[int(index)]
+                for index in model["classes"]
+            ]
+            order = [class_labels.index(label) for label in siblings]
+            local = local[:, order]
             before = logits.argmax(axis=1)
             lab_mass = np.logaddexp.reduce(
                 logits[:, columns],
                 axis=1,
                 keepdims=True,
             )
-            logits[:, columns] = lab_mass + _lsm(
-                logits[:, columns] + weight * specialist[lab],
-                axis=1,
+            logits[:, columns] = lab_mass + np.log(
+                np.clip(local, 1e-12, None)
             )
             print(
-                f"specialist {lab}: weight={weight:.3f} "
-                f"spread={spread:.3f} "
+                f"specialist {family}: meta-stack "
                 f"changed={int((logits.argmax(axis=1) != before).sum())}",
                 flush=True,
             )
@@ -273,6 +290,11 @@ def make_cell(cell_type: str, source: str) -> dict[str, object]:
 
 
 def main() -> None:
+    meta_config = json.loads(
+        (ROOT / "configs" / "family_meta_stack_c03.json").read_text(
+            encoding="utf-8"
+        )
+    )
     notebook = json.loads(SOURCE_NOTEBOOK.read_text(encoding="utf-8"))
     cells = notebook["cells"]
     markers = (
@@ -302,7 +324,13 @@ def main() -> None:
             "and preserve the lab's total mass.\n",
         ),
         make_cell("code", WORKER_SOURCE),
-        make_cell("code", APPLY_SOURCE),
+        make_cell(
+            "code",
+            APPLY_SOURCE.replace(
+                "__META_CONFIG__",
+                json.dumps(meta_config),
+            ),
+        ),
     ]
     cells[insert_at:insert_at] = additions
     notebook["cells"] = cells

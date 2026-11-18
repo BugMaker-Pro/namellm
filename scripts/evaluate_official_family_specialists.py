@@ -68,6 +68,12 @@ def main() -> None:
     )
     parser.add_argument("--max-per-model", type=int, default=12000)
     parser.add_argument("--seed", type=int, default=20261118)
+    parser.add_argument("--alpha", type=float, default=2e-6)
+    parser.add_argument(
+        "--families",
+        default="claude,gpt,gemini",
+        help="Comma-separated family prefixes.",
+    )
     parser.add_argument(
         "--output",
         default=str(ROOT / "validation/official_family_specialists.json"),
@@ -92,6 +98,13 @@ def main() -> None:
             train["prompt_id"],
         )
     )
+    families = [
+        value.strip()
+        for value in args.families.split(",")
+        if value.strip()
+    ]
+    if not families:
+        raise ValueError("--families cannot be empty")
     specialist_logp = np.zeros((len(train), len(LABELS)), dtype=np.float32)
     specialist_meta: dict[str, object] = {}
     fold_metrics = []
@@ -100,7 +113,7 @@ def main() -> None:
             f"fold={fold} train={len(train_index)} valid={len(valid_index)}",
             flush=True,
         )
-        for family in FAMILIES:
+        for family in families:
             labels = [
                 label
                 for label in LABELS
@@ -138,6 +151,7 @@ def main() -> None:
                 fit_targets,
                 family_valid["text"].tolist(),
                 args.seed + fold,
+                alpha=args.alpha,
             )
             columns = [LABELS.index(label) for label in classes]
             specialist_logp[
@@ -173,7 +187,7 @@ def main() -> None:
     )
     family_rows = {
         family: train["model"].str.startswith(family + "-").to_numpy()
-        for family in FAMILIES
+        for family in families
     }
     results: dict[str, object] = {
         "base_score": base_score,
@@ -183,7 +197,7 @@ def main() -> None:
                 base_probabilities,
                 family_rows[family],
             )
-            for family in FAMILIES
+            for family in families
         },
         "weights": {},
         "fold_metrics": fold_metrics,
@@ -191,7 +205,7 @@ def main() -> None:
     }
     for weight in (0.05, 0.1, 0.15, 0.2, 0.25, 0.35, 0.5):
         candidate_logits = logits.copy()
-        for family in FAMILIES:
+        for family in families:
             classes = np.asarray(specialist_meta[family]["classes"])
             candidate_logits = apply_family(
                 candidate_logits,
@@ -213,7 +227,7 @@ def main() -> None:
                     probabilities,
                     family_rows[family],
                 )
-                for family in FAMILIES
+                for family in families
             },
         }
 
@@ -223,7 +237,7 @@ def main() -> None:
         classes=np.asarray(
             [
                 specialist_meta[family]["classes"][0]
-                for family in FAMILIES
+                for family in families
             ]
         ),
     )

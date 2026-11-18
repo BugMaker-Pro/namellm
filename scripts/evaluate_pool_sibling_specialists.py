@@ -90,6 +90,7 @@ def build_specialist(
     target: np.ndarray,
     fit_texts: list[str],
     seed: int,
+    alpha: float = 2e-6,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     char = TfidfVectorizer(
         analyzer="char_wb",
@@ -126,7 +127,7 @@ def build_specialist(
     )
     model = SGDClassifier(
         loss="log_loss",
-        alpha=2e-6,
+        alpha=alpha,
         max_iter=20,
         tol=None,
         class_weight="balanced",
