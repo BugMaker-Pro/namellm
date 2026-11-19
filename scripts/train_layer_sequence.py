@@ -139,6 +139,85 @@ class LayerSequenceModel(nn.Module):
         return self.classifier(torch.cat([pooled, extra], dim=-1))
 
 
+class LayerTransformerModel(nn.Module):
+    def __init__(
+        self,
+        input_size: int,
+        extra_size: int,
+        hidden_size: int,
+        layer_count: int,
+        transformer_layers: int,
+        heads: int,
+        causal: bool,
+        layer_delta: bool,
+    ):
+        super().__init__()
+        if hidden_size % heads:
+            raise ValueError("hidden_size must be divisible by heads")
+        self.causal = causal
+        self.layer_delta = layer_delta
+        self.input_projection = nn.Sequential(
+            nn.LayerNorm(input_size),
+            nn.Linear(input_size, hidden_size),
+            nn.GELU(),
+            nn.Dropout(0.2),
+        )
+        self.layer_embedding = nn.Parameter(
+            torch.randn(1, layer_count, hidden_size) * 0.02
+        )
+        layer = nn.TransformerEncoderLayer(
+            d_model=hidden_size,
+            nhead=heads,
+            dim_feedforward=hidden_size * 4,
+            dropout=0.2,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True,
+        )
+        self.encoder = nn.TransformerEncoder(
+            layer,
+            num_layers=transformer_layers,
+            norm=nn.LayerNorm(hidden_size),
+        )
+        classifier_input = hidden_size * 3 + extra_size
+        self.classifier = nn.Sequential(
+            nn.LayerNorm(classifier_input),
+            nn.Dropout(0.3),
+            nn.Linear(classifier_input, 512),
+            nn.GELU(),
+            nn.Dropout(0.3),
+            nn.Linear(512, len(LABELS)),
+        )
+
+    def forward(self, sequence: torch.Tensor, extra: torch.Tensor) -> torch.Tensor:
+        encoded = self.input_projection(sequence) + self.layer_embedding
+        if self.layer_delta:
+            delta = torch.zeros_like(encoded)
+            delta[:, 1:] = encoded[:, 1:] - encoded[:, :-1]
+            encoded = encoded + delta
+        mask = None
+        if self.causal:
+            mask = torch.triu(
+                torch.ones(
+                    encoded.shape[1],
+                    encoded.shape[1],
+                    dtype=torch.bool,
+                    device=encoded.device,
+                ),
+                diagonal=1,
+            )
+        output = self.encoder(encoded, mask=mask)
+        pooled = torch.cat(
+            [
+                output.mean(dim=1),
+                output.max(dim=1).values,
+                output[:, -1],
+            ],
+            dim=-1,
+        )
+        return self.classifier(torch.cat([pooled, extra], dim=-1))
+
+
 def predict(
     model: nn.Module,
     loader: DataLoader,
@@ -175,14 +254,17 @@ def main() -> None:
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument(
         "--cell",
-        choices=["gru", "lstm", "deltanet"],
+        choices=["gru", "lstm", "deltanet", "transformer"],
         default="gru",
     )
+    parser.add_argument("--transformer-layers", type=int, default=2)
+    parser.add_argument("--heads", type=int, default=4)
     parser.add_argument(
         "--direction",
         choices=["bidirectional", "causal"],
         default="bidirectional",
     )
+    parser.add_argument("--no-group-relative", action="store_true")
     parser.add_argument("--residual", action="store_true")
     parser.add_argument("--layer-delta", action="store_true")
     parser.add_argument(
@@ -214,14 +296,15 @@ def main() -> None:
         .to_numpy(dtype=np.float32)
     )
     clusters = blind_prompt_clusters(frame["text"].tolist(), 0.90)
-    extra = np.hstack(
-        [
-            style,
-            group_relative(style, clusters),
-            lm,
-            group_relative(lm, clusters),
-        ]
-    )
+    extra_parts = [style, lm]
+    if not args.no_group_relative:
+        extra_parts.extend(
+            [
+                group_relative(style, clusters),
+                group_relative(lm, clusters),
+            ]
+        )
+    extra = np.hstack(extra_parts)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     folds = list(GroupKFold(5).split(frame, labels, frame["prompt_id"]))
@@ -240,10 +323,13 @@ def main() -> None:
                 random_state=42,
             ).fit(train_scaled)
             pca_all = pca.transform(scaler.transform(layer_values))
-            relative = group_relative(pca_all, clusters)
-            layer_arrays.append(
-                np.hstack([pca_all, relative]).astype(np.float32)
-            )
+            if args.no_group_relative:
+                layer_arrays.append(pca_all.astype(np.float32))
+            else:
+                relative = group_relative(pca_all, clusters)
+                layer_arrays.append(
+                    np.hstack([pca_all, relative]).astype(np.float32)
+                )
         sequence = np.stack(layer_arrays, axis=1)
         extra_scaler = StandardScaler().fit(extra[train_index])
         extra_scaled = extra_scaler.transform(extra).astype(np.float32)
@@ -269,16 +355,28 @@ def main() -> None:
             shuffle=False,
         )
 
-        model = LayerSequenceModel(
-            input_size=sequence.shape[-1],
-            extra_size=extra.shape[1],
-            hidden_size=args.hidden_size,
-            layer_count=sequence.shape[1],
-            cell_type=args.cell,
-            bidirectional=args.direction == "bidirectional",
-            residual=args.residual,
-            layer_delta=args.layer_delta,
-        ).to(device)
+        if args.cell == "transformer":
+            model = LayerTransformerModel(
+                input_size=sequence.shape[-1],
+                extra_size=extra.shape[1],
+                hidden_size=args.hidden_size,
+                layer_count=sequence.shape[1],
+                transformer_layers=args.transformer_layers,
+                heads=args.heads,
+                causal=args.direction == "causal",
+                layer_delta=args.layer_delta,
+            ).to(device)
+        else:
+            model = LayerSequenceModel(
+                input_size=sequence.shape[-1],
+                extra_size=extra.shape[1],
+                hidden_size=args.hidden_size,
+                layer_count=sequence.shape[1],
+                cell_type=args.cell,
+                bidirectional=args.direction == "bidirectional",
+                residual=args.residual,
+                layer_delta=args.layer_delta,
+            ).to(device)
         optimizer = torch.optim.AdamW(
             model.parameters(),
             lr=args.learning_rate,

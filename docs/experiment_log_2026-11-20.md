@@ -295,3 +295,56 @@ to submission `58438557`.
 - It combines the public 0.704 path, the learned Fable/GLM gate, Q35 at
   weight `0.15`, and PNASF at weight `0.10`.
 - Status at launch was `PENDING`; public LB was recorded as `TBD`.
+
+## Cross-Layer Decoder Experiment
+
+The local Qwen3-4B fold-0 representation was used to test a decoder with
+layer-36 hidden states as queries and earlier token states as key/value
+memory. Both branches receive sinusoidal position encoding.
+
+Architecture:
+
+- Query: layer-36 contextual token states.
+- Key/value: layer-8 contextual token states, or layer-0 token embeddings.
+- Query tokens run causal self-attention before cross-attention to the
+  key/value memory.
+- Outputs are masked-mean, masked-max, last query, and query-summary
+  concatenated with a 36-feature style branch when enabled.
+
+Fold-0 results:
+
+| Query | Key/value | Query mask | Style | Balanced accuracy |
+| --- | --- | --- | --- | ---: |
+| layer 36 | layer 8 | causal | no | 0.2833 |
+| layer 36 | layer 8 | causal | yes | 0.3444 |
+| layer 36 | layer 8 | bidirectional | no | 0.3241 |
+| layer 36 | layer 0 | causal | no | 0.3056 |
+| layer 36 | layer 0 | causal | yes | 0.3333 |
+
+The layer-8/style/causal variant was trained with seeds 42, 43, and 44.
+Their geometric ensemble reached `0.3944`.
+
+Against the local Attention MIL reader:
+
+- Fold-0 full-group blend: `0.4481 -> 0.4722`.
+- Sparse2 at weight `0.50`: `0.4701`, paired delta `+0.0211`.
+- Prompt-bootstrap interval: `[+0.0122, +0.0309]`.
+- Seed win rate: `0.72`, below the required `0.80`.
+
+Against the prompt-dependent cluster-balanced diagnostic parent:
+
+- Fold-0 full-group blend: `0.6185 -> 0.6315`.
+- Sparse2 at weight `0.02`: `0.6396`, paired delta `+0.0113`.
+- Prompt-bootstrap interval: `[+0.0052, +0.0151]`.
+- Seed win rate: `0.56`.
+
+Conclusion: reject the cross-layer token decoder as a deployment reader.
+It contains complementary signal, but the selective gains are not stable
+enough to justify the additional runtime or Qwen14 migration.
+
+Implementation:
+
+- `scripts/train_cross_layer_decoder.py`
+- `tests/test_cross_layer_decoder.py`
+- `features/qwen3_seq_fold0_layer8` (ignored intermediate artifact)
+- `features/qwen3_seq_fold0_layer0` (ignored intermediate artifact)

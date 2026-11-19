@@ -1,0 +1,36 @@
+{
+  "query": "layer36 contextual token states",
+  "key_value": [
+    "layer8 contextual token states",
+    "layer0 token embeddings"
+  ],
+  "position_encoding": "sinusoidal on both query and key/value",
+  "fold0_single_scores": {
+    "layer8_causal_no_style": 0.2833,
+    "layer8_causal_style": 0.3444,
+    "layer8_bidirectional_no_style": 0.3241,
+    "layer0_causal_no_style": 0.3056,
+    "layer0_causal_style": 0.3333
+  },
+  "layer8_style_causal_3seed_geometric_ensemble": 0.3944,
+  "attention_mil_full_group_blend": 0.4722,
+  "attention_mil_sparse2": {
+    "weight": 0.5,
+    "mean": 0.4701433888370163,
+    "paired_delta": 0.02109399049855379,
+    "seed_win_rate": 0.72,
+    "bootstrap_p025": 0.0121522319577598,
+    "bootstrap_p975": 0.0308781184784034,
+    "reader_gate_passed": false
+  },
+  "cluster_parent_sparse2": {
+    "weight": 0.02,
+    "mean": 0.6396105729328769,
+    "paired_delta": 0.011305062765847078,
+    "seed_win_rate": 0.56,
+    "bootstrap_p025": 0.005180427144682658,
+    "bootstrap_p975": 0.015071671472250516,
+    "reader_gate_passed": false
+  },
+  "decision": "reject"
+}
