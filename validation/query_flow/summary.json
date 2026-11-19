@@ -1,0 +1,40 @@
+{
+  "protocol": "fold0-prompt-grouped-query-flow-diagnostic",
+  "attention_mil_baseline": 0.44814814814814813,
+  "query_single_models": {
+    "causal_k8_l1": 0.4315,
+    "symmetric_k8_l1": 0.4352,
+    "causal_k16_l1": 0.4352,
+    "symmetric_k16_l1": 0.4370,
+    "causal_k16_l2": 0.4333,
+    "style_reconstruction_w005": 0.4296,
+    "style_reconstruction_w020": 0.4222,
+    "prompt_adversary_w005_seed42": 0.4407
+  },
+  "query_geometric_ensemble_4seed": 0.45185185185185184,
+  "attention_mil_blend": 0.4592592592592593,
+  "attention_mil_blend_query_weight": 0.35,
+  "ordinary_transformer_control_2seed": 0.38703703703703707,
+  "attention_mil_control_blend": 0.4574074074074074,
+  "sparse2": {
+    "baseline_mean": 0.44904941837846246,
+    "best_variant": "query_weight_0.4",
+    "mean": 0.46823610138499844,
+    "paired_delta": 0.01918668300653595,
+    "seed_win_rate": 0.66,
+    "bootstrap_p025": 0.013116747336220818,
+    "reader_gate_passed": false
+  },
+  "prompt_adversary_4seed": {
+    "single_scores": [0.4407, 0.4241, 0.4148, 0.4333],
+    "geometric_ensemble": 0.4481,
+    "attention_mil_blend": 0.4574,
+    "correlation_with_attention_mil": 0.9029
+  },
+  "cluster_balanced_fold0_diagnostic": {
+    "baseline": 0.6185,
+    "blended": 0.6315,
+    "query_weight": 0.10
+  },
+  "decision": "reject"
+}

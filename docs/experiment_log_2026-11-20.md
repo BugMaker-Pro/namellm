@@ -231,3 +231,67 @@ Saved artifacts:
   `pnasf_encoder.pt`, `pnasf_classifier.joblib`, and `pnasf_config.json`.
 - Submission `58438557` at public LB `0.702` remains the fallback. Do not
   replace it until the PNASF kernel finishes and its submission is evaluated.
+
+## DeepSeek-OCR Query Flow Diagnostic
+
+The DeepSeek-OCR 2 query idea was tested as a prompt-independent sequence
+reader over the existing fold-0 Qwen layer-36 PCA-128 token states.
+
+- Content tokens form fixed memory.
+- A learnable query bank reads memory through cross-attention.
+- Query-to-query self-attention can be causal or symmetric.
+- Only query outputs and the existing Qwen summary PCA features reach the
+  classifier.
+
+The matched Attention MIL baseline reached fold-0 balanced accuracy `0.4481`.
+
+Single-model query results:
+
+| Variant | Balanced accuracy |
+| --- | ---: |
+| Causal K=8, one layer | 0.4315 |
+| Symmetric K=8, one layer | 0.4352 |
+| Causal K=16, one layer | 0.4352 |
+| Symmetric K=16, one layer | 0.4370 |
+| Causal K=16, two layers | 0.4333 |
+| Causal plus 36-style reconstruction w=0.05 | 0.4296 |
+| Causal plus 36-style reconstruction w=0.20 | 0.4222 |
+| Causal plus prompt adversary w=0.05, seed 42 | 0.4407 |
+
+A four-seed geometric query ensemble reached `0.4519`. Its fixed-weight
+log blend with Attention MIL reached `0.4593` at query weight `0.35`.
+A two-seed ordinary Transformer control also raised Attention MIL to
+`0.4574`, so much of the apparent gain is generic ensemble diversity rather
+than query-specific behavior.
+
+The mandatory sparse2 check used 50 seeds, two rows per validation prompt,
+and 500 prompt-bootstrap replicates:
+
+- Attention MIL baseline mean: `0.4490`.
+- Best query blend at weight `0.40`: `0.4682`.
+- Paired delta: `+0.0192`.
+- Seed win rate: `0.66`, below the required `0.80`.
+- Prompt-bootstrap interval: `[+0.0131, +0.0245]`.
+- Reader gate: rejected.
+
+Prompt adversary over four seeds produced `0.4407`, `0.4241`, `0.4148`, and
+`0.4333`. Its geometric ensemble was `0.4481`, and its Attention MIL blend
+was only `0.4574`; correlation with Attention MIL also increased to about
+`0.90`.
+
+As a diagnostic only, the query ensemble raised the prompt-dependent
+cluster-balanced fusion on the fold-0 validation rows from `0.6185` to
+`0.6315` at weight `0.10`. It did not improve the current Qwen stack blend.
+
+Conclusion: reject the causal-query branch as a deployment candidate. Keep
+`scripts/train_sequence_downstream.py --model query_flow` and the saved
+diagnostics for reproducibility, but do not expand it to five folds or add it
+to submission `58438557`.
+
+## PNASF Submission
+
+- Code submission `58578599` uses
+  `yyyyhhhhwww/ntl-0704-pnasf` version 2.
+- It combines the public 0.704 path, the learned Fable/GLM gate, Q35 at
+  weight `0.15`, and PNASF at weight `0.10`.
+- Status at launch was `PENDING`; public LB was recorded as `TBD`.

@@ -11,4 +11,4 @@ gold_apex_0716,public_0702_glm_pairwise,58534420,0.697,,,,,-0.005,,,complete_reg
 fable_gate_s05,public_0704_v12,58570156,TBD,0.669232,0.027954,0.628027,1.000000,0.024535,0.021675,0.026989,pending_lb,Learned Fable/GLM gate at strength 0.5 margin 0.20 on the public 0.704 path
 fable_q35_context3_w040,public_0704_v12,58570469,TBD,0.674472,0.030471,0.623235,1.000000,0.029776,0.024166,0.035483,pending_lb,Fable learned gate plus weighted Qwen3.5 reader at w0.40; 3-row context diagnostic
 fable_q35_context3_w015,public_0704_v12,58571708,TBD,0.675280,0.031520,0.624050,0.980000,0.030584,0.026009,0.034530,pending_lb,Fable learned gate plus conservative Qwen3.5 reader at w0.15; 3-row context diagnostic and preferred deployment
-fable_q35_pnasf_w010,public_0704_v12,TBD,0.685391,0.689318,,,,0.044621,0.039979,0.049239,kernel_running,Fable learned gate plus Q35 w0.15 and PNASF source field w0.10; private kernel yyyyhhhhwww/ntl-0704-pnasf version 2
+fable_q35_pnasf_w010,public_0704_v12,58578599,TBD,0.689318,,,,0.044621,0.039979,0.049239,pending_lb,Fable learned gate plus Q35 w0.15 and PNASF source field w0.10; private kernel yyyyhhhhwww/ntl-0704-pnasf version 2
