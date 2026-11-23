@@ -177,7 +177,7 @@ def main() -> None:
     metadata = json.loads(
         (source / "kernel-metadata.json").read_text(encoding="utf-8")
     )
-    metadata["id"] = "yyyyhhhhwww/name-that-llm-0704-clean-contrastive"
+    metadata["id"] = "yyyyhhhhwww/ntl-0704-clean-contrastive"
     metadata["title"] = "NTL 0704 Clean Contrastive"
     metadata["code_file"] = notebook_path.name
     metadata["is_private"] = True
