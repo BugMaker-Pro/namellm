@@ -42,6 +42,40 @@ The corrected fixed candidate is
 No public submission was created. The existing **0.703** submission remains
 unchanged.
 
+## Kaggle Ablation Package
+
+The clean branch was packaged for a single public ablation:
+
+- private dataset: `yyyyhhhhwww/ntl-clean-contrastive-e14`;
+- private kernel: `yyyyhhhhwww/ntl-0704-clean-contrastive` version 3;
+- parent: the verified 0.704 notebook;
+- insertion point: after the parent `FINAL_LOGITS` and V1 input setup;
+- fixed gate: exclude parent top-1 `gpt-5.6-terra` and
+  `claude-fable-5`;
+- fixed clean weight: 0.18;
+- local three-row smoke inference passed with finite, normalized
+  probabilities and checkpoint label-order validation.
+
+Version 1 exposed a staging-level label-order bug before upload, and version 2
+failed because the clean cells ran before `V1_TEST_CSV` was defined. Version 3
+fixes both. It was still `QUEUED` when this record was written. A direct
+`submit-code` call against the unfinished version returned HTTP 400, so no
+code submission has been created for this ablation.
+
+To finish the ablation when version 3 completes:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/kaggle_cli_ipv4.py kernels status `
+  yyyyhhhhwww/ntl-0704-clean-contrastive
+
+.\.venv\Scripts\python.exe scripts/submit_kaggle_code.py `
+  --competition name-that-llm `
+  --kernel yyyyhhhhwww/ntl-0704-clean-contrastive `
+  --kernel-version 3 `
+  --file-name submission.parquet `
+  --message "0704 clean contrastive e14 w0.18 ablation"
+```
+
 ## Pre-Correction Candidate (Not Fold-Safe)
 
 The strongest prompt-grouped and sparse2 branch uses:
