@@ -155,7 +155,7 @@ def main() -> None:
             encoding="utf-8"
         )
     )
-    insert_at = 20
+    insert_at = 27
     clean_cells = []
     for source_value in (CLEAN_CELL, BLEND_CELL):
         clean_cells.append(
