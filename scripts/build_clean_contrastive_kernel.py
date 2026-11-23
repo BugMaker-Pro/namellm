@@ -16,6 +16,7 @@ import importlib
 import os
 import subprocess
 import sys
+import zipfile
 
 import numpy as np
 import pandas as pd
@@ -28,9 +29,23 @@ clean_roots = [
 ]
 CLEAN_ROOT = next((path for path in clean_roots if path.is_dir()), None)
 assert CLEAN_ROOT is not None, clean_roots
-for path in (CLEAN_ROOT / 'fold0', CLEAN_ROOT / 'fold4'):
-    assert (path / 'model_state.pt').is_file(), path
 assert (CLEAN_ROOT / 'predict_clean_contrastive.py').is_file()
+if all(
+    (CLEAN_ROOT / f'fold{fold}' / 'model_state.pt').is_file()
+    for fold in range(5)
+):
+    CLEAN_CHECKPOINTS = CLEAN_ROOT
+else:
+    CLEAN_CHECKPOINTS = Path('/kaggle/temp/clean-contrastive')
+    CLEAN_CHECKPOINTS.mkdir(parents=True, exist_ok=True)
+    for fold in range(5):
+        archive = CLEAN_ROOT / f'fold{fold}.zip'
+        assert archive.is_file(), archive
+        with zipfile.ZipFile(archive) as handle:
+            handle.extractall(CLEAN_CHECKPOINTS)
+for fold in range(5):
+    path = CLEAN_CHECKPOINTS / f'fold{fold}' / 'model_state.pt'
+    assert path.is_file(), path
 
 try:
     import bitsandbytes
@@ -50,7 +65,7 @@ torch.cuda.empty_cache()
 clean_ids, clean_probabilities = clean_runtime.predict_frame(
     clean_query,
     checkpoint('qwen3', 2560, None),
-    CLEAN_ROOT,
+    CLEAN_CHECKPOINTS,
     batch_size=4,
     max_length=384,
 )
